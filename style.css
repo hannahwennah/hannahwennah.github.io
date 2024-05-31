@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Averia+Sans+Libre:wght@300;400;700&family=Fredoka:wght@300..700&display=swap');
 body {
     background: #fdf9f8;
     color: #8c7b80;
     padding: 10px;
-    font-family: arial;
+    font-family: 'averia sans libre';
+    font-size: 13px;
 }
 #all-contents {
     max-width: 800px;
@@ -38,12 +41,10 @@ a {
 
 /* main container area beneath menu */
 main {
-    background: #f2eceb;
     display: flex;
 }
 .sidebar {
-    margin-right: 25px;
-    padding: 10px;
+    margin-right: 10px;
 }
 .sidebar-img {
     width: 200px;
@@ -51,6 +52,14 @@ main {
 .content {
     flex: 1;
     padding: 15px;
+    font-size: 13px
+}
+h2 {
+    font-size: 34px;
+    color: #E999AD;
+}
+h3 {
+    font-size: 32px;
 }
 
 /* portfolio styles */
@@ -59,4 +68,5 @@ main {
 }
 h2, h3 {
     margin: 0px;
+    font-family: 'fredoka';
 }
