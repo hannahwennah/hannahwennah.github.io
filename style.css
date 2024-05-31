@@ -1,72 +1,83 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Averia+Sans+Libre:wght@300;400;700&family=Fredoka:wght@300..700&display=swap');
+html, body {
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
 body {
-    background: #fdf9f8;
-    color: #8c7b80;
-    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFFFFF;
     font-family: 'averia sans libre';
     font-size: 13px;
+    color: #91787C;
 }
 #all-contents {
-    max-width: 800px;
+    max-width: 600px;
     margin: auto;
+    padding: 10px;
 }
 
 /* navigation menu */
 nav {
-    background: #f2eceb;
-    margin: 0 auto;
-    margin-bottom: 20px;
     display: flex;
-    padding: 10px;
-}
-h1 {
-    display: flex;
+    flex: 1; 
     align-items: center;
-    color: #8c7b80;
-    flex: 1;
-    margin: 0;
+    background: #F5F5F5;
+    margin-bottom: 15px;
+    padding: 0 10px;
 }
 #nav-ul {
+    display: flex;
+    margin-left: auto;
     list-style-image: none;
 }
 .nav-li {
     display: inline-block;
-    padding: 0 10px;
 }
 a {
-    text-decoration: none;
+    padding-left: 25px;
     color: #8c7b80;
+    text-decoration: none;
+}
+a:hover {
+    color: #e09dae;
 }
 
-/* main container area beneath menu */
+/* main container */
 main {
     display: flex;
-}
-.sidebar {
-    margin-right: 10px;
+    background: #F5F5F5;
 }
 .sidebar-img {
+    margin: 10px;
     width: 200px;
 }
 .content {
     flex: 1;
-    padding: 15px;
-    font-size: 13px
-}
-h2 {
-    font-size: 34px;
-    color: #E999AD;
-}
-h3 {
-    font-size: 32px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 50px;
+    font-size: 13px;
 }
 
-/* portfolio styles */
+/* interests */
 #interests {
     padding: 0px;
 }
 h2, h3 {
     margin: 0px;
     font-family: 'fredoka';
+}
+h2 {
+    font-size: 34px;
+    color: #e09dae;
+}
+h3 {
+    font-size: 32px;
+}
+p{
+    line-height: 7.5px;
 }
