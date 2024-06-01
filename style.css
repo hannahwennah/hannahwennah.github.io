@@ -1,83 +1,90 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Averia+Sans+Libre:wght@300;400;700&family=Fredoka:wght@300..700&display=swap');
-html, body {
-    height: 100%;
-    margin: 0px;
-    padding: 0px;
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Averia+Sans+Libre:wght@300;400;700&family=Fredoka:wght@300..700&display=swap");
+html,
+body {
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
 }
 body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #FFFFFF;
-    font-family: 'averia sans libre';
-    font-size: 13px;
-    color: #91787C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  font-family: "averia sans libre";
+  font-size: 13px;
+  color: #91787c;
 }
 #all-contents {
-    max-width: 600px;
-    margin: auto;
-    padding: 10px;
+  max-width: 600px;
+  margin: auto;
+  padding: 10px;
 }
 
 /* navigation menu */
 nav {
-    display: flex;
-    flex: 1; 
-    align-items: center;
-    background: #F5F5F5;
-    margin-bottom: 15px;
-    padding: 0 10px;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  background: #f5f5f5;
+  margin-bottom: 15px;
+  padding: 0 10px;
 }
 #nav-ul {
-    display: flex;
-    margin-left: auto;
-    list-style-image: none;
+  display: flex;
+  margin-left: auto;
+  list-style-image: none;
 }
 .nav-li {
-    display: inline-block;
+  display: inline-block;
 }
 a {
-    padding-left: 25px;
-    color: #8c7b80;
-    text-decoration: none;
+  padding-left: 25px;
+  color: #8c7b80;
+  text-decoration: none;
 }
 a:hover {
-    color: #e09dae;
+  color: #e09dae;
 }
 
 /* main container */
 main {
-    display: flex;
-    background: #F5F5F5;
+  display: flex;
+  background: #f5f5f5;
 }
 .sidebar-img {
-    margin: 10px;
-    width: 200px;
+  margin: 10px;
+  width: 200px;
 }
 .content {
-    flex: 1;
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-right: 50px;
-    font-size: 13px;
+  flex: 1;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 50px;
+  font-size: 13px;
 }
 
-/* interests */
-#interests {
-    padding: 0px;
+/* interests section */
+#interests-ul {
+  margin-top: 7px;
+  padding-left: 20px;
 }
-h2, h3 {
-    margin: 0px;
-    font-family: 'fredoka';
+.interests-li {
+  padding: 1.1px;
+}
+h2,
+h3 {
+  margin: 0px;
+  padding-top: 5px;
+  font-family: "fredoka";
 }
 h2 {
-    font-size: 34px;
-    color: #e09dae;
+  font-size: 34px;
+  color: #e09dae;
 }
 h3 {
-    font-size: 32px;
+  font-size: 32px;
 }
-p{
-    line-height: 7.5px;
+p {
+    line-height: 5px;
 }
