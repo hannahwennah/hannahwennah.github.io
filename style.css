@@ -38,8 +38,11 @@ nav {
 .nav-li {
   display: inline-block;
 }
-a {
+.nav-a {
   padding-left: 25px;
+  color: #8c7b80;
+}
+a {
   color: #8c7b80;
   text-decoration: none;
 }
@@ -90,23 +93,14 @@ p {
 }
 
 /* portfolio */
-.content h1 {
-  color: black;
+.content {
+  margin-left: 10px;
+  margin-right: 10px;
 }
 #portfolio {
-  list-style-type: none;
-  padding-left: 0;
+  margin-top: 7px;
+  padding-left: 20px;
 }
 #portfolio li {
-  background: #fff;
-  padding: 10px;
-  border-radius: 10px;
-  margin-bottom: 10px;
-}
-#portfolio li:hover {
-  background: #eee;
-}
-#portfolio a {
-  text-decoration: none;
-  color: #454545;
+  padding: 1.1px;
 }
