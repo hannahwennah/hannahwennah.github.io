@@ -42,28 +42,33 @@ $(function () {
     // TODO 1
     // Create platforms
     // You must decide the x position, y position, width, and height of the platforms
-    // example usage: createPlatform(x,y,width,height)
-
-
-
-    
+    // example usage: createPlatform(x,y,width,height); dimensions r 1400 x 750, design later, at least 5
+    createPlatform(100, 600, 25, 10);
+    createPlatform(300, 500, 25, 10);
+    createPlatform(500, 400, 25, 10);
+    createPlatform(700, 300, 25, 10);
+    createPlatform(900, 200, 25, 10);
     // TODO 2
-    // Create collectables
+    // Create collectables, at least 3
     // You must decide on the collectable type, the x position, the y position, the gravity, and the bounce strength
-    // Your collectable choices are 'database' 'diamond' 'grace' 'kennedi' 'max' and 'steve'; more can be added if you wish
-    // example usage: createCollectable(type, x, y, gravity, bounce)
-
-
-
-
+    // Your collectable choices are 'database' 'grace' 'kennedi' 'max' and 'steve'; more can be added if you wish
+    // example usage: createCollectable(type, x, y, gravity, bounce) - gravity how fast collectable accelerates downward, bounce strength (how hard object bounces, set to 1 to bounce back to same height)
+    createCollectable("database", 100, 450);
+    createCollectable("database", 300, 325);
+    createCollectable("database", 500, 200);
     // TODO 3
-    // Create cannons
+    // Create cannons, at least 3
     // You must decide the wall you want the cannon on, the position on the wall, and the time between shots in milliseconds
     // Your wall choices are: 'top' 'left' 'right' and 'bottom'
     // example usage: createCannon(side, position, delay, width, height)
-
-
-
+    // position is how far along the side
+    createCannon("top", 200, 2000);
+    createCannon("top", 400, 1000);
+    createCannon("top", 600, 500);
+    //requirements - playable but challenging, , must change height to get some collectables0
+    //git add -A
+    //git commit -m 'add platformer.js file'
+    //git push
 
     /////////////////////////////////////////////////
     //////////ONLY CHANGE ABOVE THIS POINT///////////
