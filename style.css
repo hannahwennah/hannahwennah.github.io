@@ -93,3 +93,11 @@ main {
 #interests-ul, #portfolio {
   margin-top: 7px;
 }
+
+/* to remove later */
+#portfolio {
+  list-style-type: none;
+}
+#portfolio li:hover {
+  background: #eee;
+}
