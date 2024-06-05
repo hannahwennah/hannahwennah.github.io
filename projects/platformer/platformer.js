@@ -64,7 +64,7 @@ $(function () {
     // position is how far along the side
     createCannon("top", 200, 2000);
     createCannon("top", 400, 1000);
-    createCannon("top", 600, 500);
+    createCannon("top", 600, 750);
     //requirements - playable but challenging, , must change height to get some collectables0
     //git add -A
     //git commit -m 'add platformer.js file'
