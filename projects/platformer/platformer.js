@@ -27,7 +27,7 @@ $(function () {
      * This can give you a better idea of where to create new platforms
      * Comment the lines out to remove the grid
      */
-    
+
     for (let i = 100; i < canvas.width; i += 100) {
       createPlatform(i, canvas.height, -1, -canvas.height);
     }
@@ -43,20 +43,24 @@ $(function () {
     // Create platforms
     // You must decide the x position, y position, width, and height of the platforms
     // example usage: createPlatform(x,y,width,height); change height later
-    createPlatform(0, 625, 400, 10);
+    createPlatform(1150, 150, 25, 10);
+    createPlatform(475, 250, 425, 10);
     createPlatform(125, 375, 175, 10);
     createPlatform(500, 500, 200, 10);
-    createPlatform(475, 250, 425, 10);
     createPlatform(1050, 575, 350, 10);
-    createPlatform(1150, 150, 25, 10);
+    createPlatform(0, 625, 400, 10);
     // TODO 2
     // Create collectables, at least 3
     // You must decide on the collectable type, the x position, the y position, the gravity, and the bounce strength
     // Your collectable choices are 'database' 'grace' 'kennedi' 'max' and 'steve'; more can be added if you wish
     // example usage: createCollectable(type, x, y, gravity, bounce) - gravity how fast collectable accelerates downward, bounce strength (how hard object bounces, set to 1 to bounce back to same height)
-    createCollectable("database", 100, 450, 0);
-    createCollectable("database", 300, 325, 0);
-    createCollectable("database", 500, 200, 0);
+    createCollectable("database", 425, 475, 0);
+    createCollectable("database", 350, 550, 0);
+    createCollectable("database", 25, 675, 0);
+    createCollectable("database", 100, 675, 0);
+    createCollectable("database", 175, 675, 0);
+    createCollectable("database", 250, 675, 0);
+    createCollectable("database", 325, 675, 0);
     // TODO 3
     // Create cannons, at least 3
     // You must decide the wall you want the cannon on, the position on the wall, and the time between shots in milliseconds
