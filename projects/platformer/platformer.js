@@ -21,19 +21,19 @@ $(function () {
     createPlatform(-50, -50, 50, canvas.height + 500); //bottom
     createPlatform(canvas.width, -50, 50, canvas.height + 100);
 
-    /**
+    /*
      * Uncomment the loops below to add a "grid" to your platformer game's screen
      * The grid will place both horizontal and vertical platforms incremented 100 pixels apart
      * This can give you a better idea of where to create new platforms
      * Comment the lines out to remove the grid
      */
 
-    // for (let i = 100; i < canvas.width; i += 100) {
-    //   createPlatform(i, canvas.height, -1, -canvas.height);
-    // }
-    // for (let i = 100; i < canvas.height; i += 100) {
-    //   createPlatform(canvas.width, i, -canvas.width, -1);
-    // }
+    for (let i = 100; i < canvas.width; i += 100) {
+      createPlatform(i, canvas.height, -1, -canvas.height);
+    }
+    for (let i = 100; i < canvas.height; i += 100) {
+      createPlatform(canvas.width, i, -canvas.width, -1);
+    }
 
     /////////////////////////////////////////////////
     //////////ONLY CHANGE BELOW THIS POINT///////////
@@ -43,11 +43,12 @@ $(function () {
     // Create platforms
     // You must decide the x position, y position, width, and height of the platforms
     // example usage: createPlatform(x,y,width,height); dimensions r 1400 x 750, design later, at least 5
-    createPlatform(100, 600, 25, 10);
-    createPlatform(300, 500, 25, 10);
-    createPlatform(500, 400, 25, 10);
-    createPlatform(700, 300, 25, 10);
-    createPlatform(900, 200, 25, 10);
+    createPlatform(0, 625, 400, 10);
+    createPlatform(125, 375, 175, 10);
+    createPlatform(500, 500, 200, 10);
+    createPlatform(475, 250, 425, 10);
+    createPlatform(1050, 575, 350, 10);
+    createPlatform(1150, 150, 25, 10);
     // TODO 2
     // Create collectables, at least 3
     // You must decide on the collectable type, the x position, the y position, the gravity, and the bounce strength
@@ -62,9 +63,9 @@ $(function () {
     // Your wall choices are: 'top' 'left' 'right' and 'bottom'
     // example usage: createCannon(side, position, delay, width, height)
     // position is how far along the side
-    createCannon("top", 200, 2000);
-    createCannon("top", 400, 1000);
-    createCannon("top", 600, 750);
+    // createCannon("top", 200, 2000);
+    // createCannon("top", 400, 1000);
+    // createCannon("top", 600, 750);
     //requirements - playable but challenging, , must change height to get some collectables0
     //git add -A
     //git commit -m 'add platformer.js file'
