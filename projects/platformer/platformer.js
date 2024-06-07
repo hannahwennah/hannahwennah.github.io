@@ -65,7 +65,7 @@ $(function () {
     createCollectable("star", 1325, 675, 0);
     // todo #3: create cannons
     // example usage: createCannon(side, position, delay, width, height);
-    createCannon("right", 225, 1501);
+    createCannon("right", 225, 1500);
     createCannon("right", 400, 1750);
     createCannon("right", 575, 1500);
     createCannon("right", 750, 2250);
