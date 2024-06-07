@@ -27,12 +27,14 @@ $(function () {
      * This can give you a better idea of where to create new platforms
      * Comment the lines out to remove the grid
      */
+    /*
     for (let i = 100; i < canvas.width; i += 100) {
       createPlatform(i, canvas.height, -1, -canvas.height);
     }
     for (let i = 100; i < canvas.height; i += 100) {
       createPlatform(canvas.width, i, -canvas.width, -1);
     }
+      */
     /////////////////////////////////////////////////
     //////////ONLY CHANGE BELOW THIS POINT///////////
     /////////////////////////////////////////////////
@@ -52,6 +54,7 @@ $(function () {
     // You must decide on the collectable type, the x position, the y position, the gravity, and the bounce strength
     // Your collectable choices are 'database' 'grace' 'kennedi' 'max' and 'steve'; more can be added if you wish
     // example usage: createCollectable(type, x, y, gravity, bounce) - gravity how fast collectable accelerates downward, bounce strength (how hard object bounces, set to 1 to bounce back to same height)
+    createCollectable("star", 1141, 75, 0);
     createCollectable("star", 550, 175, 0);
     createCollectable("star", 625, 175, 0);
     createCollectable("star", 700, 175, 0);
@@ -59,19 +62,23 @@ $(function () {
     createCollectable("star", 150, 300, 0);
     createCollectable("star", 225, 300, 0);
     createCollectable("star", 475, 425, 0);
-    createCollectable("star", 700, 425, 0);
-    createCollectable("star", 775, 435, 0);
     createCollectable("star", 850, 450, 0);
     createCollectable("star", 390, 475, 0);
-    createCollectable("star", 925, 470, 0);
-    createCollectable("star", 1000, 495, 0);
+    createCollectable("star", 925, 475, 0);
+    createCollectable("star", 1000, 500, 0);
     createCollectable("star", 1075, 500, 0);
+    createCollectable("star", 1150, 500, 0);
     createCollectable("star", 325, 550, 0);
     createCollectable("star", 25, 675, 0);
     createCollectable("star", 100, 675, 0);
     createCollectable("star", 175, 675, 0);
     createCollectable("star", 250, 675, 0);
     createCollectable("star", 325, 675, 0);
+    createCollectable("star", 1025, 675, 0);
+    createCollectable("star", 1100, 675, 0);
+    createCollectable("star", 1175, 675, 0);
+    createCollectable("star", 1250, 675, 0);
+    createCollectable("star", 1325, 675, 0);
     // TODO 3
     // Create cannons, at least 3
     // You must decide the wall you want the cannon on, the position on the wall, and the time between shots in milliseconds
