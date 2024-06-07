@@ -34,7 +34,7 @@ $(function () {
     for (let i = 100; i < canvas.height; i += 100) {
       createPlatform(canvas.width, i, -canvas.width, -1);
     }
-      */
+    */
     /////////////////////////////////////////////////
     //////////ONLY CHANGE BELOW THIS POINT///////////
     /////////////////////////////////////////////////
@@ -85,10 +85,10 @@ $(function () {
     // Your wall choices are: 'top' 'left' 'right' and 'bottom'
     // example usage: createCannon(side, position, delay, width, height)
     // position is how far along the side
-    // createCannon("top", 200, 2000);
-    // createCannon("top", 400, 1000);
-    // createCannon("top", 600, 750);
-    //requirements - playable but challenging, , must change height to get some collectables0
+    createCannon("right", 225, 1500);
+    createCannon("right", 400, 1750);
+    createCannon("right", 575, 1500);
+    createCannon("right", 750, 2250);
     //git add -A
     //git commit -m 'add platformer.js file'
     //git push
