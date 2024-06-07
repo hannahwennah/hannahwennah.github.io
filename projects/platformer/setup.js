@@ -4,17 +4,15 @@ const gravity = 0.5; // how much is subtracted from speedY each frame
 const friction = 1.5; // how much the player is slowed each frame
 const maxSpeed = 8; // maximum horizontal speed, not vertical
 const playerJumpStrength = 12; // this is subtracted from the speedY each jump
-const projectileSpeed = 8; // the speed of projectiles
+const projectileSpeed = 8; // the speed of the projectiles
 
-/////////////////////////////////////////////////
-//////////ONLY CHANGE ABOVE THIS POINT///////////
-/////////////////////////////////////////////////
+// only change above this point
 
-// Base game variables
+// base game variables
 const frameRate = 60;
-const playerScale = 0.8; //makes the player just a bit smaller. Doesn't affect the hitbox, just the image
+const playerScale = 0.8; // makes the player only a bit smaller (only affects the image, not the hitbox)
 
-// Player variables
+// player variables
 const player = {
   x: 50,
   y: 100,
@@ -42,7 +40,7 @@ const keyPress = {
   space: false,
 };
 
-// Player animation variables
+// player animation variables
 const animationTypes = {
   duck: "duck",
   flyingJump: "flying-jump",
@@ -54,6 +52,7 @@ const animationTypes = {
   stop: "stop",
   walk: "walk",
 };
+
 let currentAnimationType = animationTypes.run;
 let frameIndex = 0;
 let jumpTimer = 0;
@@ -68,7 +67,7 @@ let spriteY = 0;
 let offsetX = 0;
 let offsetY = 0;
 
-// Platform, cannon, projectile, and collectable variables
+// platform, cannon, projectile, and collectable variables
 let platforms = [];
 let cannons = [];
 const cannonWidth = 118;
@@ -80,11 +79,11 @@ const collectableWidth = 40;
 const collectableHeight = 40;
 let collectables = [];
 
-// canvas and context variables; must be initialized later
+// canvas and context variables (must be initialized later)
 let canvas;
 let ctx;
 
-// setup function variable
+// the setup function variable
 let setup;
 
 let halleImage;
