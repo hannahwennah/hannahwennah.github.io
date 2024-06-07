@@ -89,10 +89,6 @@ $(function () {
     createCannon("right", 400, 1750);
     createCannon("right", 575, 1500);
     createCannon("right", 750, 2250);
-    //git add -A
-    //git commit -m 'add platformer.js file'
-    //git push
-
     /////////////////////////////////////////////////
     //////////ONLY CHANGE ABOVE THIS POINT///////////
     /////////////////////////////////////////////////
