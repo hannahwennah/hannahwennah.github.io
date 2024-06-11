@@ -2,31 +2,34 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Bouncing Box</title>
+    <title>bouncing box!</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://i.pinimg.com/564x/b1/9e/55/b19e551cbd17bd9bfa0f2b26723d56bb.jpg"
+    />
+    <!-- image obtained from https://www.pinterest.com/pin/1072630836241243927/ -->
     <script src="jquery.min.js"></script>
     <style>
       .box {
-        width: 70px;
-        height: 70px;
-        background-color: teal;
-        font-size: 300%;
-        text-align: center;
-        user-select: none;
         display: block;
         position: absolute;
-        top: 100px;
-        left: 100px; /* <--- Change me! */
+        text-align: center;
+        font-size: 300%;
+        width: 60px;
+        height: 60px;
+        top: 50px;
+        left: 50px;
+        user-select: none;
       }
       .board {
         height: 100vh;
       }
     </style>
-    <!-- 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
   </head>
   <body class="board">
-    <!-- HTML for the box -->
-    <div class="box">?</div>
-
+    <div class="box">0</div>
     <script>
       (function () {
         "use strict";
@@ -63,8 +66,8 @@
         //////////////////////////////////////////////////////////////////
 
         // TODO 2 - Variable declarations
-        var positionX = 100;
-        var positionY = 100;
+        var positionX = 50;
+        var positionY = 50;
         var points = 0;
         var speedX = 10;
         var speedY = 10;
