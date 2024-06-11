@@ -45,12 +45,12 @@
 
         // Every time the box is clicked, call the handleBoxClick Function (see below)
         box.on("click", handleBoxClick);
-		board.on("click", handleBoardClick);
+        board.on("click", handleBoardClick);
 
         // moves the Box to a new position on the screen along the X-Axis
         function moveBoxTo(newPositionX, newPositionY) {
           box.css("left", newPositionX);
-		  box.css("top", newPositionY);
+          box.css("top", newPositionY);
         }
 
         // changes the text displayed on the Box
@@ -64,14 +64,14 @@
 
         // TODO 2 - Variable declarations
         var positionX = 100;
-		var positionY = 100;
+        var positionY = 100;
         var points = 0;
         var speedX = 10;
-		var speedY = 10;
-		var boardHeight = jQuery(window).height(); 
-		var colorStr = "rgb(50, 25, 250)";
-		var misclick = 0;
-		box.css('background-color', colorStr);	
+        var speedY = 10;
+        var boardHeight = jQuery(window).height();
+        var colorStr = "rgb(50, 25, 250)";
+        var misclick = 0;
+        box.css("background-color", colorStr);
         /* 
 			This Function will be called 20 times/second. Each time it is called,
 			it should move the Box to a new location. If the box drifts off the screen
@@ -79,7 +79,7 @@
 			*/
         function update() {
           positionX += speedX; // increases the value of positionX
-		  positionY += speedY;
+          positionY += speedY;
           moveBoxTo(positionX, positionY);
           if (positionX > boardWidth) {
             speedX *= -1;
@@ -87,12 +87,12 @@
           if (positionX < 0) {
             speedX *= -1;
           }
-		  if (positionY > boardHeight) {
-			speedY *= -1;
-		  }
-		  if (positionY < 0) {
-			speedY *= -1;
-		  }
+          if (positionY > boardHeight) {
+            speedY *= -1;
+          }
+          if (positionY < 0) {
+            speedY *= -1;
+          }
         }
 
         /* 
@@ -102,29 +102,40 @@
 			*/
         function handleBoxClick() {
           positionX = 100;
-		  positionY = 100;
+          positionY = 100;
           points += 1;
+          changeColor();
           changeBoxText(points);
           if (speedX > 0) {
             speedX += 3;
           } else if (speedX < 0) {
             speedX -= 3;
           }
-		  if (speedY > 0) {
-			speedY += 3;
-		  } else if (speedY < 0) {
-			speedY -= 3;
-		  }
+          if (speedY > 0) {
+            speedY += 3;
+          } else if (speedY < 0) {
+            speedY -= 3;
+          }
         }
-		function handleBoardClick() {
-			misclick += 1;
-			if (misclick > 10){
-				endGame()
-			}
-		}
-		function endGame() {
-			clearInterval(interval);
-		}
+        function handleBoardClick() {
+          misclick += 1;
+          if (misclick > 10) {
+            endGame();
+          }
+        }
+        function endGame() {
+          clearInterval(interval);
+        }
+        function changeColor() {
+          if (points % 5 === 1) {
+            colorStr = "rgb(157, 177, 209)";
+          } else if (points % 5 === 2) {
+            colorStr = "rgb(252, 186, 3)";
+          } else if (points % 5 === 3) {
+            colorStr = "rgb(114, 75, 128)";
+          }
+          box.css("background-color", colorStr);
+        }
       })();
     </script>
   </body>
