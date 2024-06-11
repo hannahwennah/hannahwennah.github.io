@@ -41,10 +41,11 @@
         var boardWidth = board.width(); // the maximum X-Coordinate of the screen
 
         // Every 50 milliseconds, call the update Function (see below)
-        setInterval(update, 50);
+        var interval = setInterval(update, 50);
 
         // Every time the box is clicked, call the handleBoxClick Function (see below)
         box.on("click", handleBoxClick);
+		board.on("click", handleBoardClick);
 
         // moves the Box to a new position on the screen along the X-Axis
         function moveBoxTo(newPositionX, newPositionY) {
@@ -69,6 +70,7 @@
 		var speedY = 10;
 		var boardHeight = jQuery(window).height(); 
 		var colorStr = "rgb(50, 25, 250)";
+		var misclick = 0;
 		box.css('background-color', colorStr);	
         /* 
 			This Function will be called 20 times/second. Each time it is called,
@@ -114,6 +116,15 @@
 			speedY -= 3;
 		  }
         }
+		function handleBoardClick() {
+			misclick += 1;
+			if (misclick > 10){
+				endGame()
+			}
+		}
+		function endGame() {
+			clearInterval(interval);
+		}
       })();
     </script>
   </body>
