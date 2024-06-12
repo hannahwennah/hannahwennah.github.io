@@ -29,7 +29,7 @@
     <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
   </head>
   <body class="board">
-    <div class="box">0</div>
+    <div class="box"></div>
     <script>
       (function () {
         "use strict";
@@ -72,7 +72,7 @@
         var speedX = 10;
         var speedY = 10;
         var boardHeight = jQuery(window).height();
-        var colorStr = "rgb(50, 25, 250)";
+        var colorStr = "rgb(248, 180, 197)";
         var misclick = 0;
         box.css("background-color", colorStr);
         /* 
@@ -130,12 +130,10 @@
           clearInterval(interval);
         }
         function changeColor() {
-          if (points % 5 === 1) {
-            colorStr = "rgb(157, 177, 209)";
-          } else if (points % 5 === 2) {
-            colorStr = "rgb(252, 186, 3)";
-          } else if (points % 5 === 3) {
-            colorStr = "rgb(114, 75, 128)";
+          if (points % 2 === 1) {
+            colorStr = "rgb(194, 234, 227)";
+          } else {
+            colorStr = "rgb(248, 180, 197)";
           }
           box.css("background-color", colorStr);
         }
