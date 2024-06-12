@@ -47,7 +47,6 @@ function JsonFunction(status, response) {
   /*
     a diagram of the json
     the top level is the name of the animation
-    also, don't you dare complain, this is operation sparks fault for making the animation so complicated.=
     animation name{
         coordinates{
             sx: xpadding,
