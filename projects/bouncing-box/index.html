@@ -34,76 +34,71 @@
     <script>
       (function () {
         "use strict";
+
         // global jQuery
         // setup (do not delete)
+
         var box = jQuery(".box"); // references the HTML .box element
         var board = jQuery(".board"); // references the HTML .board element
         var boardWidth = board.width(); // references the screen's maximum x-coordinate
         var interval = setInterval(update, 50); // calls the update function every 50 milliseconds
-
-        // Every time the box is clicked, call the handleBoxClick Function (see below)
-        box.on("click", handleBoxClick);
-        board.on("click", handleBoardClick);
-
-        // moves the Box to a new position on the screen along the X-Axis
+        box.on("click", handleBoxClick); // calls the handleBoxClick function each time the box is clicked
+        board.on("click", handleMisclick); // calls the handleMisclick function each time the board is clicked
+        
+        // moves the box
         function moveBoxTo(newPositionX, newPositionY) {
           box.css("left", newPositionX);
           box.css("top", newPositionY);
         }
 
-        // changes the text displayed on the Box
+        // changes the text on the box
         function changeBoxText(newText) {
           box.text(newText);
         }
 
-        //////////////////////////////////////////////////////////////////
-        /////////////////// YOUR CODE BELOW HERE /////////////////////////
-        //////////////////////////////////////////////////////////////////
+        // your code below
 
-        // TODO 2 - Variable declarations
+        // declares global variables
+        var boardHeight = jQuery(window).height();
         var positionX = 50;
         var positionY = 50;
-        var points = 0;
         var speedX = 10;
         var speedY = 10;
-        var boardHeight = jQuery(window).height();
-        var colorStr = "rgb(224, 157, 174)";
-        var misclick = 0;
-        box.css("background-color", colorStr);
-        /* 
-			This Function will be called 20 times/second. Each time it is called,
-			it should move the Box to a new location. If the box drifts off the screen
-			turn it around!
-			*/
+        var points = 0;
+        var misclicks = 0;
+        var color = "rgb(224, 157, 174)";
+        box.css("background-color", color);
+
+        // moves the box to a new location and bounces it back if it drifts off the screen
         function update() {
-          positionX += speedX; // increases the value of positionX
+          positionX += speedX;
           positionY += speedY;
           moveBoxTo(positionX, positionY);
-          if (positionX > boardWidth) {
+          if (positionX > boardWidth || positionX < 0) {
             speedX *= -1;
           }
-          if (positionX < 0) {
-            speedX *= -1;
-          }
-          if (positionY > boardHeight) {
-            speedY *= -1;
-          }
-          if (positionY < 0) {
+          if (positionY > boardHeight || positionY < 0) {
             speedY *= -1;
           }
         }
 
-        /* 
-			This Function will be called each time the box is clicked. Each time it is called,
-			it should increase the points total, increase the speed, and move the box to
-			the left side of the screen.
-			*/
+        // changes the box's color
+        function changeColor() {
+          if (points % 2 === 1) {
+            color = "rgb(145, 120, 124)";
+          } else {
+            color = "rgb(224, 157, 174)";
+          }
+          box.css("background-color", color);
+        }
+
+        // increases the points and speed, and resets the box's position
         function handleBoxClick() {
-          positionX = 100;
-          positionY = 100;
+          positionX = 50;
+          positionY = 50;
           points += 1;
-          changeColor();
           changeBoxText(points);
+          changeColor();
           if (speedX > 0) {
             speedX += 3;
           } else if (speedX < 0) {
@@ -115,22 +110,18 @@
             speedY -= 3;
           }
         }
-        function handleBoardClick() {
-          misclick += 1;
-          if (misclick > 20) {
-            endGame();
-          }
-        }
+
+        // ends the game
         function endGame() {
           clearInterval(interval);
         }
-        function changeColor() {
-          if (points % 2 === 1) {
-            colorStr = "rgb(145, 120, 124)";
-          } else {
-            colorStr = "rgb(224, 157, 174)";
+
+        // handles misclicks
+        function handleMisclick() {
+          misclicks += 1;
+          if (misclicks > 20) {
+            endGame();
           }
-          box.css("background-color", colorStr);
         }
       })();
     </script>
