@@ -1,13 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
-    <title>bouncing box!</title>
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="https://i.pinimg.com/564x/b1/9e/55/b19e551cbd17bd9bfa0f2b26723d56bb.jpg"
-    />
+    <meta charset="utf-8"/>
+    <title> bouncing box! </title>
+    <link rel="icon" type="image/x-icon" href="https://i.pinimg.com/564x/b1/9e/55/b19e551cbd17bd9bfa0f2b26723d56bb.jpg"/>
     <!-- image obtained from https://www.pinterest.com/pin/1072630836241243927/ -->
     <script src="jquery.min.js"></script>
     <style>
@@ -18,9 +14,9 @@
         display: block;
         position: absolute;
         text-align: center;
+        font-family: "helvetica";
         font-size: 350%;
         color: #FFFFFF;
-        font-family: "helvetica";
         width: 65px;
         height: 65px;
         top: 50px;
@@ -34,22 +30,16 @@
     <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
   </head>
   <body class="board">
-    <div class="box">0</div>
+    <div class="box"> 0 </div>
     <script>
       (function () {
         "use strict";
-        /* global jQuery */
-
-        //////////////////////////////////////////////////////////////////
-        /////////////////// SETUP DO NOT DELETE //////////////////////////
-        //////////////////////////////////////////////////////////////////
-
-        var box = jQuery(".box"); // reference to the HTML .box element
-        var board = jQuery(".board"); // reference to the HTML .board element
-        var boardWidth = board.width(); // the maximum X-Coordinate of the screen
-
-        // Every 50 milliseconds, call the update Function (see below)
-        var interval = setInterval(update, 50);
+        // global jQuery
+        // setup (do not delete)
+        var box = jQuery(".box"); // references the HTML .box element
+        var board = jQuery(".board"); // references the HTML .board element
+        var boardWidth = board.width(); // references the screen's maximum x-coordinate
+        var interval = setInterval(update, 50); // calls the update function every 50 milliseconds
 
         // Every time the box is clicked, call the handleBoxClick Function (see below)
         box.on("click", handleBoxClick);
