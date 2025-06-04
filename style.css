@@ -15,7 +15,7 @@ body {
   font-size: 13px;
   color: #91787c;
 }
-#everything {
+#all-content {
   max-width: 574px;
   margin: auto;
 }
@@ -76,7 +76,7 @@ main {
   margin: 10px;
   width: 155px;
 }
-#homepage-img {
+#home-img {
   width: 200px;
 }
 .content {
@@ -85,7 +85,7 @@ main {
   margin-left: 10px;
   margin-right: 10px;
 }
-#homepage-content {
+#home-content {
   margin-right: 50px;
 }
 
