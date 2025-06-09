@@ -166,7 +166,7 @@ $(document).ready(function () {
       `<p>${shapeData.color}</p> <p>${shapeData.shape}</p> <p>${shapeData.repeat}x${shapeData.repeat}</p> <p>${shapeData.goodBehavior}</p>`
     );
 
-    $("#info-bar").text(`Current index: ${currentIndex}`);
+    $("#info-bar").text(`the index: ${currentIndex}`);
 
     // Reset the JavaScript Data
     animationDetails = {
