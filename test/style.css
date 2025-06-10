@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+html, body {
+  height: 99%;
+}
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "nunito";
+  font-size: 12px;
+  font-weight: 350;
+  text-align: center;
+}
+main {
+  background-color: rgb(226, 207, 201);
+  padding: 25px;
+}
+button {
+  #background-color: #FFFFFF;
+  height: 25px;
+  width: 50px;
+  margin: 25px 25px 0px 25px;
+}
+#board {
+  background-color: #FFFFFF;
+  height: 250px;
+  width: 250px;
+}
