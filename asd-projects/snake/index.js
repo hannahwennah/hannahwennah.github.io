@@ -21,9 +21,13 @@ var COLUMNS = 20;
 var SQUARE_SIZE = 20;
 var KEY = {
   LEFT: 37,
-  UP: 38,
   RIGHT: 39,
+  UP: 38,
   DOWN: 40,
+  A: 65,
+  D: 68,
+  W: 87,
+  S: 83,
 };
 
 // interval variable required for stopping the update function when the game ends
@@ -53,7 +57,7 @@ function init() {
   makeApple();
   // TODO 5a: Initialize the interval
   // start update interval
-  updateInterval = setInterval(update, 100);
+  updateInterval = setInterval(update, 100); // change the snake speed by changing this #
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -67,11 +71,9 @@ function init() {
 function update() {
   // TODO 5b: Fill in the update function's code block
   moveSnake();
-
   if (hasHitWall() || hasCollidedWithSnake()) {
     endGame();
   }
-
   if (hasCollidedWithApple()) {
     handleAppleCollision();
   }
@@ -85,13 +87,13 @@ function checkForNewDirection(event) {
   perpendicular to the current direction
   */
 
-  if (activeKey === KEY.LEFT) {
+  if (activeKey === KEY.LEFT || activeKey === KEY.A) {
     snake.head.direction = "left";
-  } else if (activeKey === KEY.RIGHT) {
+  } else if (activeKey === KEY.RIGHT || activeKey === KEY.D) {
     snake.head.direction = "right";
-  } else if (activeKey === KEY.UP) {
+  } else if (activeKey === KEY.UP || activeKey === KEY.W) {
     snake.head.direction = "up";
-  } else if (activeKey === KEY.DOWN) {
+  } else if (activeKey === KEY.DOWN || activeKey === KEY.S) {
     snake.head.direction = "down";
   }
 
@@ -182,11 +184,17 @@ function hasCollidedWithApple() {
 function handleAppleCollision() {
   // increase the score and update the score DOM element
   score++;
-  scoreElement.text("Score: " + score);
+  scoreElement.text("score: " + score);
 
   // Remove existing Apple and create a new one
   apple.element.remove();
   makeApple();
+
+  /* code for teleportation !!
+  var randomPosition = getRandomAvailablePosition();
+  snake.head.row = randomPosition.row;
+  snake.head.column = randomPosition.column;
+  */
 
   /* 
   TODO 10: determine the location of the next snakeSquare based on the .row,
@@ -244,8 +252,8 @@ function endGame() {
   board.empty();
 
   // update the highScoreElement to display the highScore
-  highScoreElement.text("High Score: " + calculateHighScore());
-  scoreElement.text("Score: 0");
+  highScoreElement.text("high score: " + calculateHighScore());
+  scoreElement.text("score: 0");
   score = 0;
 
   // restart the game after 500 ms
@@ -371,7 +379,7 @@ function calculateHighScore() {
   if (score > highScore) {
     sessionStorage.setItem("highScore", score);
     highScore = score;
-    alert("New High Score!");
+    alert("you hit a new high score!");
   }
 
   return highScore;
