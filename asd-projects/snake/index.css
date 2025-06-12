@@ -1,20 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 
-html, body {
-  height: 99%;
-}
 body {
   align-items: center;
+  display: flex;
+  height: 99vh;
   justify-content: center;
   font-family: "nunito";
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 350;
+  margin: 0px;
+  padding: 0px;
+}
+
+p {
+  margin: 0px 0px 15px 0px;
 }
 
 #board {
   background-color: black;
-  height: 440px; /* don't change this */
-  width: 440px; /* don't change this */
+  height: 440px;
+  width: 440px;
+  position: relative;
 }
 
 .snake, .apple {
