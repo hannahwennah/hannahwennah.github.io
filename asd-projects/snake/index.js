@@ -1,5 +1,9 @@
 // variable declarations
 
+/* in the beginning, the flag is false (probably set it in the 'start' function)
+In the end function, o not run if it is true, but otherwise, set it to true and run
+*/
+
 var key; // tracks which key the user pressed last
 var updateInterval;
 
@@ -70,9 +74,15 @@ $("#teleport-mode").on("click", function () {
 $("#black").on("click", function () {
   changeSnakeColor(this);
 });
+$("#blue").on("click", function() {
+  changeSnakeColor(this);
+})
 $("#brown").on("click", function () {
   changeSnakeColor(this);
 });
+$("#purple").on("click", function () {
+  changeSnakeColor(this);
+})
 
 start(); // starts the game
 
@@ -253,9 +263,15 @@ function changeSnakeColor(color) {
   if (color.id === "black") {
     snakeColor = "#404040";
     snakeHeadColor = "#000000";
+  } else if (color.id === "blue") {
+    snakeColor = "#9caee2";
+    snakeHeadColor = "#889ddd";
   } else if (color.id === "brown") {
     snakeColor = "#d3a17b";
     snakeHeadColor = "#cc9266";
+  } else if (color.id === "purple") {
+    snakeColor = "#c7adeb";
+    snakeHeadColor = "#b299e6";
   }
   $(".snake").css("background-color", snakeColor);
   $("#snake-head").css("background-color", snakeHeadColor);
