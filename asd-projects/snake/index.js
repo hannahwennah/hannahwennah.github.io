@@ -27,7 +27,7 @@ start(); // starts the game
 function start() {
   snake.body = []; // 4C
   makeCheckerboard();
-  makeSnakeSquare(10, 10); // 4C
+  makeSnakeSquare(columns / 2, rows / 2); // 4C
   snake.head = snake.body[0]; // 4C
   makeApple(); // 4B-2
   score = 0;
@@ -183,8 +183,8 @@ function makeApple() { // 4B-1
 }
 
 function makeCheckerboard() {
-  for (i = 0; i <= 18; i += 2) {
-    for (j = 1; j < 18; j += 2) {
+  for (i = 0; i <= columns; i += 2) {
+    for (j = 1; j < rows; j += 2) {
       var checkerboard = {};
       checkerboard.element = $("<div>").addClass("checkerboard").appendTo(board);
       checkerboard.column = i;
@@ -192,8 +192,8 @@ function makeCheckerboard() {
       reposition(checkerboard);
     }
   }
-  for (i = 1; i < 18; i += 2) {
-    for (j = 0; j <= 18; j += 2) {
+  for (i = 1; i < columns; i += 2) {
+    for (j = 0; j <= rows; j += 2) {
       var checkerboard = {};
       checkerboard.element = $("<div>").addClass("checkerboard").appendTo(board);
       checkerboard.column = i;

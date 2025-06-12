@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 
 body {
@@ -6,14 +7,68 @@ body {
   height: 99vh;
   justify-content: center;
   font-family: "nunito";
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 350;
-  margin: 0px;
-  padding: 0px;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+}
+
+h1 {
+  font-family: "fredoka";
+  color: #cc916f;
+  font-size: 51px;
+  margin: 0px 0px 20px 0px;
+}
+
+h2 {
+  font-family: "nunito";
+  font-size: 12px;
+  font-weight: 485;
+  margin: 20px 0px 0px 0px;
 }
 
 p {
-  margin: 0px 0px 15px 0px;
+  line-height: 5px;
+  margin: 0px 0px 12.5px 0px;
+}
+
+ul {
+  margin: 0px 0px 0px 0px;
+  padding-left: 20px;
+}
+
+li {
+  padding-top: 2.5px;
+}
+
+button {
+  all: unset;
+}
+
+button:hover {
+  color: #cc916f;
+  cursor: pointer;
+}
+
+#description {
+  align-items: left;
+  display: flex;
+  flex-direction: column;
+  margin: 0px 20px 0px 0px;
+}
+
+#options {
+  display: flex;
+}
+
+.column {
+  flex: 1;
+}
+
+#game {
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 #board {
