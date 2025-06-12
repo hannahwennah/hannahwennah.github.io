@@ -39,6 +39,15 @@ $("#plum").on("click", function() {
   changeAppleColor(this);
 })
 
+$("#normal-mode").on("click", function() {
+  teleportMode = false;
+});
+$("#teleport-mode").on("click", function() {
+  teleportMode = true;
+});
+
+start(); // starts the game
+
 /*
 $("#large").on("click", function() {
   $("#board").css("height", "500").css("width", "500");
@@ -55,9 +64,6 @@ $("#medium").on("click", function() {
   end();
 });
 */
-$("#normal-mode").on("click", function() {
-  teleportMode = false;
-});
 /*
 $("#small").on("click", function() {
   $("#board").css("height", "260").css("width", "260");
@@ -66,10 +72,6 @@ $("#small").on("click", function() {
   end();
 });
 */
-$("#teleport-mode").on("click", function() {
-  teleportMode = true;
-});
-start(); // starts the game
 
 // function definitions
 
