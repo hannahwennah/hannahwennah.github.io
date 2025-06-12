@@ -17,9 +17,12 @@ var highScoreElement = $("#highScore");
 var apple = {};
 var score = 0;
 var snake = {};
+var teleportMode = false;
 
 // setup
 $("body").on("keydown", handleKeyDown);
+$("#normal-mode").on("click", function(){teleportMode = false;});
+$("#teleport-mode").on("click", function(){teleportMode = true;});
 start(); // starts the game
 
 // function definitions
@@ -69,12 +72,11 @@ function handleAppleHit() {
   scoreElement.text("score: " + score);
   apple.element.remove();
   makeApple();
-
-  // teleports the snake to a random position
-  // var randomPosition = getRandomAvailablePosition();
-  // snake.head.column = randomPosition.column;
-  // snake.head.row = randomPosition.row;
-
+  if (teleportMode === true) {
+    var randomPosition = getRandomAvailablePosition();
+    snake.head.column = randomPosition.column;
+    snake.head.row = randomPosition.row;
+  }
   var column = 0; // 11
   var row = 0; // 11
   if (snake.tail.direction === "left") { // 11
