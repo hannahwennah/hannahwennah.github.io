@@ -4,8 +4,8 @@ var key; // tracks which key the user pressed last
 var updateInterval;
 
 // constant variables
-var columns = 20;
-var rows = 20;
+var columns = 18;
+var rows = 18;
 var squareLength = 20;
 
 // jQuery objects
@@ -166,6 +166,7 @@ function getRandomAvailablePosition() {
       }
     }
   }
+  console.log(randomPosition.column, randomPosition.row);
   return randomPosition;
 }
 
@@ -195,7 +196,6 @@ function makeSnakeSquare(column, row) { // 4C-1
 }
 
 function reposition(square) {
-  var buffer = 20;
-  square.element.css("left", square.column * squareLength + buffer);
-  square.element.css("top", square.row * squareLength + buffer);
+  square.element.css("left", square.column * squareLength);
+  square.element.css("top", square.row * squareLength);
 }
