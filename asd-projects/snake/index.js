@@ -26,6 +26,7 @@ start(); // starts the game
 
 function start() {
   snake.body = []; // 4C
+  makeCheckerboard();
   makeSnakeSquare(10, 10); // 4C
   snake.head = snake.body[0]; // 4C
   makeApple(); // 4B-2
@@ -166,7 +167,6 @@ function getRandomAvailablePosition() {
       }
     }
   }
-  console.log(randomPosition.column, randomPosition.row);
   return randomPosition;
 }
 
@@ -181,7 +181,19 @@ function makeApple() { // 4B-1
   apple.row = randomPosition.row;
   reposition(apple);
 }
-
+/*
+function makeCheckerboard() {
+  // for each odd row, create 9 new html elements and append to board, add class checkerboard
+  // the elements have row, column properties, and u use reposition for each one
+  for (i = 1; i < 18; i + 2) {
+    var checkerboard = {};
+    checkerboard.element = $("<div>").addClass("checkerboard").appendTo(board);
+    checkerboard.column = i;
+    checkerboard.row = 0;
+    reposition(checkerboard);
+  }
+}
+*/
 function makeSnakeSquare(column, row) { // 4C-1
   var snakeSquare = {};
   snakeSquare.element = $("<div>").addClass("snake").appendTo(board);
