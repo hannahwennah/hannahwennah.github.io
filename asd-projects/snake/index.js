@@ -21,6 +21,7 @@ var teleportMode = false;
 
 // setup
 $("body").on("keydown", handleKeyDown);
+/*
 $("#large").on("click", function() {
   $("#board").css("height", "500").css("width", "500");
   columns = 24;
@@ -33,13 +34,16 @@ $("#medium").on("click", function() {
   rows = 18;
   end();
 });
+*/
 $("#normal-mode").on("click", function(){teleportMode = false;});
+/*
 $("#small").on("click", function() {
   $("#board").css("height", "260").css("width", "260");
   columns = 12;
   rows = 12;
   end();
 });
+*/
 $("#teleport-mode").on("click", function(){teleportMode = true;});
 start(); // starts the game
 
