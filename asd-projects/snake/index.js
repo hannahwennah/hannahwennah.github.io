@@ -1,9 +1,5 @@
 // variable declarations
 
-/* in the beginning, the flag is false (probably set it in the 'start' function)
-In the end function, o not run if it is true, but otherwise, set it to true and run
-*/
-
 var key; // tracks which key the user pressed last
 var updateInterval;
 
@@ -20,6 +16,7 @@ var highScoreElement = $("#highScore");
 // 4A: variables
 var apple = {};
 var appleColor;
+var flag;
 var score = 0;
 var snake = {};
 var snakeColor;
@@ -89,6 +86,7 @@ start(); // starts the game
 // function definitions
 
 function start() {
+  flag = false;
   snake.body = []; // 4C
   makeCheckerboard();
   makeSnakeSquare(columns / 2, rows / 2); // 4C
@@ -111,12 +109,15 @@ function update() {
 }
 
 function end() {
-  clearInterval(updateInterval); // ends the function update
-  board.empty(); // clears the board
-  apple = {};
-  snake = {};
-  highScoreElement.text("high score: " + calculateHighScore());
-  setTimeout(start, 1000); // restarts the game after 1 second
+  if (flag === false) {
+    flag === true;
+    clearInterval(updateInterval); // ends the function update
+    board.empty(); // clears the board
+    apple = {};
+    snake = {};
+    highScoreElement.text("high score: " + calculateHighScore());
+    setTimeout(start, 1000); // restarts the game after 1 second
+  }
 }
 
 function checkForNewDirection(event) {
