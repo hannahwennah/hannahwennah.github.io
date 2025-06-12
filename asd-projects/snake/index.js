@@ -25,6 +25,25 @@ var teleportMode = false;
 // setup
 $("body").on("keydown", handleKeyDown);
 
+$("#large").on("click", function() {
+  $("#board").css("height", "500").css("width", "500");
+  columns = 24;
+  rows = 24;
+  end();
+});
+$("#medium").on("click", function() {
+  $("#board").css("height", "380").css("width", "380");
+  columns = 18;
+  rows = 18;
+  end();
+});
+$("#small").on("click", function() {
+  $("#board").css("height", "260").css("width", "260");
+  columns = 12;
+  rows = 12;
+  end();
+});
+
 $("#apple").on("click", function () {
   changeAppleColor(this);
 });
@@ -57,27 +76,6 @@ $("#brown").on("click", function () {
 
 start(); // starts the game
 
-/*
-$("#large").on("click", function() {
-  $("#board").css("height", "500").css("width", "500");
-  columns = 24;
-  rows = 24;
-  end();
-});
-$("#medium").on("click", function() {
-  $("#board").css("height", "380").css("width", "380");
-  columns = 18;
-  rows = 18;
-  end();
-});
-$("#small").on("click", function() {
-  $("#board").css("height", "260").css("width", "260");
-  columns = 12;
-  rows = 12;
-  end();
-});
-*/
-
 // function definitions
 
 function start() {
@@ -88,7 +86,7 @@ function start() {
   makeApple(); // 4B-2
   score = 0;
   scoreElement.text("score: 0");
-  updateInterval = setInterval(update, 100); // 5A
+  updateInterval = setInterval(update, 105); // 5A
 }
 
 function update() {
@@ -105,6 +103,8 @@ function update() {
 function end() {
   clearInterval(updateInterval); // ends the function update
   board.empty(); // clears the board
+  apple = {};
+  snake = {};
   highScoreElement.text("high score: " + calculateHighScore());
   setTimeout(start, 1000); // restarts the game after 1 second
 }
