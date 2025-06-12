@@ -181,19 +181,28 @@ function makeApple() { // 4B-1
   apple.row = randomPosition.row;
   reposition(apple);
 }
-/*
+
 function makeCheckerboard() {
-  // for each odd row, create 9 new html elements and append to board, add class checkerboard
-  // the elements have row, column properties, and u use reposition for each one
-  for (i = 1; i < 18; i + 2) {
-    var checkerboard = {};
-    checkerboard.element = $("<div>").addClass("checkerboard").appendTo(board);
-    checkerboard.column = i;
-    checkerboard.row = 0;
-    reposition(checkerboard);
+  for (i = 0; i <= 18; i += 2) {
+    for (j = 1; j < 18; j += 2) {
+      var checkerboard = {};
+      checkerboard.element = $("<div>").addClass("checkerboard").appendTo(board);
+      checkerboard.column = i;
+      checkerboard.row = j;
+      reposition(checkerboard);
+    }
+  }
+  for (i = 1; i < 18; i += 2) {
+    for (j = 0; j <= 18; j += 2) {
+      var checkerboard = {};
+      checkerboard.element = $("<div>").addClass("checkerboard").appendTo(board);
+      checkerboard.column = i;
+      checkerboard.row = j;
+      reposition(checkerboard);
+    }
   }
 }
-*/
+
 function makeSnakeSquare(column, row) { // 4C-1
   var snakeSquare = {};
   snakeSquare.element = $("<div>").addClass("snake").appendTo(board);

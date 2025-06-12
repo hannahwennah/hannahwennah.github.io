@@ -32,7 +32,7 @@ p {
 }
 
 .checkerboard {
-  background-color: blue;
+  background-color: hsl(0, 0%, 10%);
   z-index: 1;
 }
 
