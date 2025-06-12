@@ -15,12 +15,30 @@ var highScoreElement = $("#highScore");
 
 // 4A: variables
 var apple = {};
+var color;
 var score = 0;
 var snake = {};
 var teleportMode = false;
 
 // setup
 $("body").on("keydown", handleKeyDown);
+
+$("#apple").on("click", function() {
+  changeAppleColor(this);
+});
+$("#blueberry").on("click", function() {
+  changeAppleColor(this);
+})
+$("#cherry").on("click", function() {
+  changeAppleColor(this);
+});
+$("#orange").on("click", function() {
+  changeAppleColor(this);
+})
+$("#plum").on("click", function() {
+  changeAppleColor(this);
+})
+
 /*
 $("#large").on("click", function() {
   $("#board").css("height", "500").css("width", "500");
@@ -28,6 +46,8 @@ $("#large").on("click", function() {
   rows = 24;
   end();
 });
+*/
+/*
 $("#medium").on("click", function() {
   $("#board").css("height", "380").css("width", "380");
   columns = 18;
@@ -35,7 +55,9 @@ $("#medium").on("click", function() {
   end();
 });
 */
-$("#normal-mode").on("click", function(){teleportMode = false;});
+$("#normal-mode").on("click", function() {
+  teleportMode = false;
+});
 /*
 $("#small").on("click", function() {
   $("#board").css("height", "260").css("width", "260");
@@ -44,7 +66,9 @@ $("#small").on("click", function() {
   end();
 });
 */
-$("#teleport-mode").on("click", function(){teleportMode = true;});
+$("#teleport-mode").on("click", function() {
+  teleportMode = true;
+});
 start(); // starts the game
 
 // function definitions
@@ -177,6 +201,21 @@ function calculateHighScore() {
   return highScore;
 }
 
+function changeAppleColor(fruit) {
+  if (fruit.id === "apple") {
+    color = "#d92926";
+  } else if (fruit.id === "blueberry") {
+    color = "#646bb4";
+  } else if (fruit.id === "cherry") {
+    color = "#a50d33";
+  } else if (fruit.id === "orange") {
+    color = "#fa7f38";
+  } else if (fruit.id === "plum") {
+    color = "#95508f";
+  }
+  $(".apple").css("background-color", color);
+}
+
 function getRandomAvailablePosition() {
   var positionAvailable;
   var randomPosition = {};
@@ -200,6 +239,7 @@ function handleKeyDown(event) { // 6A
 
 function makeApple() { // 4B-1
   apple.element = $("<div>").addClass("apple").appendTo(board);
+  $(".apple").css("background-color", color);
   var randomPosition = getRandomAvailablePosition();
   apple.column = randomPosition.column;
   apple.row = randomPosition.row;
