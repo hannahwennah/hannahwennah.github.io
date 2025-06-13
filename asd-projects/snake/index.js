@@ -1,64 +1,63 @@
 // variable declarations
 
-var key; // tracks which key the user pressed last
-var updateInterval;
-
 // constant variables
-var columns = 18;
-var rows = 18;
 var squareLength = 20;
 
 // jQuery objects
-var board = $("#board");
-var scoreElement = $("#score");
 var highScoreElement = $("#highScore");
+var scoreElement = $("#score");
+var board = $("#board");
 
 // 4A: variables
 var apple = {};
 var appleColor;
+var columns = 18;
 var flag;
+var key; // tracks which key the user pressed last
+var rows = 18;
 var score = 0;
 var snake = {};
 var snakeColor;
 var snakeHeadColor;
 var teleportMode = false;
+var updateInterval;
 
 // setup
 $("body").on("keydown", handleKeyDown);
 
-$("#large").on("click", function() {
-  $("#board").css("height", "500").css("width", "500");
-  columns = 24;
-  rows = 24;
-  end();
-});
-$("#medium").on("click", function() {
-  $("#board").css("height", "380").css("width", "380");
-  columns = 18;
-  rows = 18;
-  end();
-});
-$("#small").on("click", function() {
+$("#small").on("click", function () {
   $("#board").css("height", "260").css("width", "260");
   columns = 12;
   rows = 12;
   end();
 });
+$("#medium").on("click", function () {
+  $("#board").css("height", "380").css("width", "380");
+  columns = 18;
+  rows = 18;
+  end();
+});
+$("#large").on("click", function () {
+  $("#board").css("height", "500").css("width", "500");
+  columns = 24;
+  rows = 24;
+  end();
+});
 
 $("#apple").on("click", function () {
-  changeAppleColor(this);
+  changeAppleColor(this.id);
 });
 $("#blueberry").on("click", function () {
-  changeAppleColor(this);
+  changeAppleColor(this.id);
 });
 $("#cherry").on("click", function () {
-  changeAppleColor(this);
+  changeAppleColor(this.id);
 });
 $("#orange").on("click", function () {
-  changeAppleColor(this);
+  changeAppleColor(this.id);
 });
 $("#plum").on("click", function () {
-  changeAppleColor(this);
+  changeAppleColor(this.id);
 });
 
 $("#normal-mode").on("click", function () {
@@ -69,17 +68,17 @@ $("#teleport-mode").on("click", function () {
 });
 
 $("#black").on("click", function () {
-  changeSnakeColor(this);
+  changeSnakeColor(this.id);
 });
-$("#blue").on("click", function() {
-  changeSnakeColor(this);
-})
+$("#blue").on("click", function () {
+  changeSnakeColor(this.id);
+});
 $("#brown").on("click", function () {
-  changeSnakeColor(this);
+  changeSnakeColor(this.id);
 });
 $("#purple").on("click", function () {
-  changeSnakeColor(this);
-})
+  changeSnakeColor(this.id);
+});
 
 start(); // starts the game
 
@@ -89,16 +88,12 @@ function start() {
   flag = false;
   snake.body = []; // 4C
   makeCheckerboard();
-  makeSnakeSquare(columns / 2, rows / 2); // 4C
-  snake.head = snake.body[0]; // 4C
   makeApple(); // 4B-2
-  score = 0;
-  scoreElement.text("score: 0");
-  updateInterval = setInterval(update, 105); // 5A
+  makeSnakeSquare(columns / 2, rows / 2); // 4C
+  updateInterval = setInterval(update, 100); // 5A
 }
 
-function update() {
-  // 5B
+function update() { // 5B
   moveSnake();
   if (hitApple()) {
     handleAppleHit();
@@ -110,18 +105,19 @@ function update() {
 
 function end() {
   if (flag === false) {
-    flag === true;
     clearInterval(updateInterval); // ends the function update
     board.empty(); // clears the board
     apple = {};
-    snake = {};
+    flag = true;
     highScoreElement.text("high score: " + calculateHighScore());
+    score = 0;
+    scoreElement.text("score: 0");
+    snake = {};
     setTimeout(start, 1000); // restarts the game after 1 second
   }
 }
 
-function checkForNewDirection(event) {
-  // 6B
+function checkForNewDirection(event) { // 6B
   if (key === 37 || key === 65) {
     // checks whether the user pressed the left arrow key or a
     snake.head.direction = "left";
@@ -138,17 +134,16 @@ function checkForNewDirection(event) {
 }
 
 function handleAppleHit() {
-  score++;
-  scoreElement.text("score: " + score);
   apple.element.remove();
   makeApple();
-  if (teleportMode === true) {
+  score++;
+  scoreElement.text("score: " + score);
+  if (teleportMode) {
     var randomPosition = getRandomAvailablePosition();
     snake.head.column = randomPosition.column;
     snake.head.row = randomPosition.row;
   }
-  var column = 0; // 11
-  var row = 0; // 11
+  var column, row // 11
   if (snake.tail.direction === "left") {
     // 11
     column = snake.tail.column + 1;
@@ -246,31 +241,31 @@ function calculateHighScore() {
 }
 
 function changeAppleColor(fruit) {
-  if (fruit.id === "apple") {
+  if (fruit === "apple") {
     appleColor = "#d92926";
-  } else if (fruit.id === "blueberry") {
+  } else if (fruit === "blueberry") {
     appleColor = "#646bb4";
-  } else if (fruit.id === "cherry") {
+  } else if (fruit === "cherry") {
     appleColor = "#a50d33";
-  } else if (fruit.id === "orange") {
+  } else if (fruit === "orange") {
     appleColor = "#fa7f38";
-  } else if (fruit.id === "plum") {
+  } else if (fruit === "plum") {
     appleColor = "#95508f";
   }
   $(".apple").css("background-color", appleColor);
 }
 
 function changeSnakeColor(color) {
-  if (color.id === "black") {
+  if (color === "black") {
     snakeColor = "#404040";
     snakeHeadColor = "#000000";
-  } else if (color.id === "blue") {
+  } else if (color === "blue") {
     snakeColor = "#9caee2";
     snakeHeadColor = "#889ddd";
-  } else if (color.id === "brown") {
+  } else if (color === "brown") {
     snakeColor = "#d3a17b";
     snakeHeadColor = "#cc9266";
-  } else if (color.id === "purple") {
+  } else if (color === "purple") {
     snakeColor = "#c7adeb";
     snakeHeadColor = "#b299e6";
   }
@@ -306,8 +301,7 @@ function handleKeyDown(event) {
 
 function makeApple() {
   // 4B-1
-  apple.element = $("<div>").addClass("apple").appendTo(board);
-  $(".apple").css("background-color", appleColor);
+  apple.element = $("<div>").addClass("apple").css("background-color", appleColor).appendTo(board);
   var randomPosition = getRandomAvailablePosition();
   apple.column = randomPosition.column;
   apple.row = randomPosition.row;
@@ -339,8 +333,7 @@ function makeCheckerboard() {
   }
 }
 
-function makeSnakeSquare(column, row) {
-  // 4C-1
+function makeSnakeSquare(column, row) { // 4C-1
   var snakeSquare = {};
   snakeSquare.element = $("<div>").addClass("snake").appendTo(board);
   $(".snake").css("background-color", snakeColor);
@@ -349,8 +342,8 @@ function makeSnakeSquare(column, row) {
   snakeSquare.row = row;
   reposition(snakeSquare);
   snake.body.push(snakeSquare);
-  if (snake.body.length === 1) {
-    // checks whether this snake square is the head
+  if (snake.body.length === 1) { // checks whether this snake square is the head
+    snake.head = snake.body[0]; // 4C
     snakeSquare.element.attr("id", "snake-head");
     $("#snake-head").css("background-color", snakeHeadColor);
   }
