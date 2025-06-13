@@ -59,6 +59,7 @@ button:hover {
 
 #options {
   display: flex;
+  gap: 30px;
 }
 
 .column {
@@ -99,10 +100,10 @@ button:hover {
 }
 
 .snake {
-  background-color: #6ce092;
+  background-color: #d3a17b;
   z-index: 3;
 }
 
 #snake-head {
-  background-color: #57db83;
+  background-color: #cc9266;
 } 
