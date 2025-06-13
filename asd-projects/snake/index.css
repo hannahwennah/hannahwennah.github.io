@@ -99,10 +99,10 @@ button:hover {
 }
 
 .snake {
-  background-color: #c7adeb;
+  background-color: #6ce092;
   z-index: 3;
 }
 
 #snake-head {
-  background-color: #b299e6;
-}
+  background-color: #57db83;
+} 

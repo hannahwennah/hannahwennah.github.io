@@ -76,6 +76,12 @@ $("#blue").on("click", function () {
 $("#brown").on("click", function () {
   changeSnakeColor(this.id);
 });
+$("#green").on("click", function () {
+  changeSnakeColor(this.id);
+})
+$("#pink").on("click", function () {
+  changeSnakeColor(this.id);
+});
 $("#purple").on("click", function () {
   changeSnakeColor(this.id);
 });
@@ -265,6 +271,12 @@ function changeSnakeColor(color) {
   } else if (color === "brown") {
     snakeColor = "#d3a17b";
     snakeHeadColor = "#cc9266";
+  } else if (color === "green") {
+    snakeColor = "#6ce092";
+    snakeHeadColor = "#57db83";
+  } else if (color === "pink") {
+    snakeColor = "#ff99c4";
+    snakeHeadColor = "#ff80b5";
   } else if (color === "purple") {
     snakeColor = "#c7adeb";
     snakeHeadColor = "#b299e6";
