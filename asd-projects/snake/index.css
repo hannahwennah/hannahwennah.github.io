@@ -24,11 +24,12 @@ h2 {
   font-family: "nunito";
   font-size: 12px;
   font-weight: 485;
-  margin: 20px 0px 0px 0px;
+  margin: 15px 0px 0px 0px;
 }
 
 p {
   line-height: 5px;
+  white-space: nowrap;
   margin: 0px 0px 12.5px 0px;
 }
 
@@ -64,6 +65,10 @@ button:hover {
 
 .column {
   flex: 1;
+}
+
+.extra-margins {
+  margin: 20px 0px 0px 0px;
 }
 
 #game {

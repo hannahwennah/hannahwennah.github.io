@@ -12,6 +12,7 @@ var board = $("#board");
 var apple = {};
 var appleColor;
 var columns = 18;
+var delay = 100;
 var flag;
 var key; // tracks which key the user pressed last
 var rows = 18;
@@ -86,6 +87,16 @@ $("#purple").on("click", function () {
   changeSnakeColor(this.id);
 });
 
+$("#slow").on("click", function () {
+  changeSnakeSpeed(this.id);
+})
+$("#medium").on("click", function () {
+  changeSnakeSpeed(this.id);
+})
+$("#fast").on("click", function () {
+  changeSnakeSpeed(this.id);
+})
+
 start(); // starts the game
 
 // function definitions
@@ -96,7 +107,7 @@ function start() {
   makeCheckerboard();
   makeApple(); // 4B-2
   makeSnakeSquare(columns / 2, rows / 2); // 4C
-  updateInterval = setInterval(update, 100); // 5A
+  updateInterval = setInterval(update, delay); // 5A
 }
 
 function update() { // 5B
@@ -283,6 +294,17 @@ function changeSnakeColor(color) {
   }
   $(".snake").css("background-color", snakeColor);
   $("#snake-head").css("background-color", snakeHeadColor);
+}
+
+function changeSnakeSpeed(speed) {
+  if (speed === "slow") {
+    delay = 125;
+  } else if (speed === "medium") {
+    delay = 100;
+  } else if (speed === "fast") {
+    delay = 75;
+  }
+  end();
 }
 
 function getRandomAvailablePosition() {
