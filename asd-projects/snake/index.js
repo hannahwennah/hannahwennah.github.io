@@ -135,17 +135,13 @@ function end() {
 }
 
 function checkForNewDirection(event) { // 6B
-  if (key === 37 || key === 65) {
-    // checks whether the user pressed the left arrow key or a
+  if (key === "ArrowLeft" || key === "a") {
     snake.head.direction = "left";
-  } else if (key === 38 || key === 87) {
-    // checks whether the user pressed the up arrow key or w
+  } else if (key === "ArrowUp" || key === "w") {
     snake.head.direction = "up";
-  } else if (key === 39 || key === 68) {
-    // checks whether the user pressed the right arrow key or d
+  } else if (key === "ArrowRight" || key === "d") {
     snake.head.direction = "right";
-  } else if (key === 40 || key === 83) {
-    // checks whether the user pressed the down arrow key or s
+  } else if (key === "ArrowDown" || key === "s") {
     snake.head.direction = "down";
   }
 }
@@ -330,7 +326,7 @@ function getRandomAvailablePosition() {
 
 function handleKeyDown(event) {
   // 6A
-  key = event.which;
+  key = event.key;
 }
 
 function makeApple() {
