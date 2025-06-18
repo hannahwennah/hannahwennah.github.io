@@ -10,26 +10,31 @@ function runProgram() {
   // Constant Variables
   var FRAME_RATE = 60;
   var FRAMES_PER_SECOND_INTERVAL = 1000 / FRAME_RATE;
-  const KEY = {
-    ENTER: 13,
-    LEFT: 37,
-    UP: 38,
-    RIGHT: 39,
-    DOWN: 40,
-  };
 
   // Game Item Objects
-  var walker = {
+  var walker1 = {
     x: 0,
     y: 0,
     speedX: 0,
-    speedY: 0,
+    speedY: 0
   };
+  var walker2 = {
+    x: 100,
+    y: 100,
+    speedX: 0,
+    speedY: 0
+  }
 
   // one-time setup
   var interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL); // execute newFrame every 0.0166 seconds (60 Frames per second)
   $(document).on("keydown", handleKeyDown); // change 'eventType' to the type of event you want to handle
   $(document).on("keyup", handleKeyUp);
+  $("#walker1").on("click", function () {
+    changeColor(this);
+  });
+  $("#walker2").on("click", function () {
+    changeColor(this);
+  });
 
   ////////////////////////////////////////////////////////////////////////////////
   ///////////////////////// CORE LOGIC ///////////////////////////////////////////
@@ -49,27 +54,34 @@ function runProgram() {
   Called in response to events.
   */
   function handleKeyDown(event) {
-    if (event.which === KEY.LEFT) {
-      console.log("the user pressed the left arrow key");
-      walker.speedX -= 5;
-    } else if (event.which === KEY.UP) {
-      console.log("the user pressed the up arrow key");
-      walker.speedY -= 5;
-    } else if (event.which === KEY.RIGHT) {
-      console.log("the user pressed the right arrow key");
-      walker.speedX += 5;
-    } else if (event.which === KEY.DOWN) {
-      console.log("the user pressed the down arrow key");
-      walker.speedY += 5;
+    if (event.key === "ArrowLeft") {
+      walker1.speedX -= 5;
+    } else if (event.key === "ArrowUp") {
+      walker1.speedY -= 5;
+    } else if (event.key === "ArrowRight") {
+      walker1.speedX += 5;
+    } else if (event.key === "ArrowDown") {
+      walker1.speedY += 5;
+    } else if (event.key === "a") {
+      walker2.speedX -= 5;
+    } else if (event.key === "w") {
+      walker2.speedY -= 5;
+    } else if (event.key === "d") {
+      walker2.speedX += 5;
+    } else if (event.key === "s") {
+      walker2.speedY += 5;
     }
-    console.log(event.which);
   }
 
   function handleKeyUp(event) {
-    if (event.which === KEY.LEFT || event.which === KEY.RIGHT) {
-      walker.speedX = 0;
-    } else if (event.which === KEY.UP || event.which === KEY.DOWN) {
-      walker.speedY = 0;
+    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+      walker1.speedX = 0;
+    } else if (event.key === "ArrowUp" || event.key === "ArrowDown") {
+      walker1.speedY = 0;
+    } else if (event.key === "a" || event.key === "d") {
+      walker2.speedX = 0;
+    } else if (event.key === "w" || event.key === "s") {
+      walker2.speedY = 0;
     }
   }
 
@@ -77,6 +89,13 @@ function runProgram() {
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
 
+  function changeColor(walker) {
+    var randomColor = "#000000".replace(/0/g, function () {
+      return (~~(Math.random() * 16)).toString(16);
+    });
+    $(walker).css("background-color", randomColor);
+  }
+  
   function endGame() {
     // stop the interval timer
     clearInterval(interval);
@@ -86,20 +105,29 @@ function runProgram() {
   }
 
   function redrawGameItem() {
-    $("#walker").css("left", walker.x).css("top", walker.y);
+    $("#walker1").css("left", walker1.x).css("top", walker1.y);
+    $("#walker2").css("left", walker2.x).css("top", walker2.y);
   }
 
   function repositionGameItem() {
-    walker.x += walker.speedX;
-    walker.y += walker.speedY;
+    walker1.x += walker1.speedX;
+    walker1.y += walker1.speedY;
+    walker2.x += walker2.speedX;
+    walker2.y += walker2.speedY;
   }
-
+  // review rubric
   function wallCollision() { // fix this i don't like how it works ! change snake key presses
-    if (walker.x < 0 || walker.x + $("#walker").width() > $("#board").width()) {
-      walker.x -= walker.speedX;
+    if (walker1.x < 0 || walker1.x + $("#walker1").width() > $("#board").width()) {
+      walker1.x -= walker1.speedX;
     }
-    if (walker.y < 0 || walker.y + $("#walker").height() > $("#board").height()) {
-      walker.y -= walker.speedY;
+    if (walker1.y < 0 || walker1.y + $("#walker1").height() > $("#board").height()) {
+      walker1.y -= walker1.speedY;
+    }
+    if (walker2.x < 0 || walker2.x + $("#walker2").width() > $("#board").width()) {
+      walker2.x -= walker2.speedX;
+    }
+    if (walker2.y < 0 || walker2.y + $("#walker2").height() > $("#board").height()) {
+      walker2.y -= walker2.speedY;
     }
   }
 }
