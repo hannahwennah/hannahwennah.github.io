@@ -1,28 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 
 body {
-  background-color: darkgreen;
+  align-items: center;
+  display: flex;
+  height: 99vh;
+  justify-content: center;
+  font-family: "nunito";
+  font-size: 12px;
+  font-weight: 350;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
 }
 
 #board {
-  width: 440px;
-  height: 440px;
-  border: 1px solid white;
   background-color: black;
+  height: 350px;
   position: relative;
+  width: 350px;
+}
+
+.walker {
+  height: 35px;
+  position: absolute;
+  width: 35px;
 }
 
 #walker1 {
   background-color: green;
-  width: 50px;
-  height: 50px;
-  position: absolute;
-/*   left: 100px; */  /* Uncomment if you want to set a "starting" position */
-/*   top: 100px;  */  /* Uncomment if you want to set a "starting" position */
 }
 
 #walker2 {
   background-color: blueviolet;
-  width: 50px;
-  height:50px;
-  position: absolute;
 }

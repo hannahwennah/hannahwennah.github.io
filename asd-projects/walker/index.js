@@ -1,32 +1,27 @@
-/* global $, sessionStorage */
-
-$(document).ready(runProgram); // wait for the HTML / CSS elements of the page to fully load, then execute runProgram()
-
+$(document).ready(runProgram); // calls the function runProgram once the page loads
 function runProgram() {
-  ////////////////////////////////////////////////////////////////////////////////
-  //////////////////////////// SETUP /////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////
+  // variable declarations
 
-  // Constant Variables
-  var FRAME_RATE = 60;
-  var FRAMES_PER_SECOND_INTERVAL = 1000 / FRAME_RATE;
+  // constants
+  const FRAMES_PER_SECOND = 60;
+  const MILLISECONDS_PER_FRAME = 1000 / FRAMES_PER_SECOND;
 
-  // Game Item Objects
+  // variables
   var walker1 = {
-    x: 0,
-    y: 0,
     speedX: 0,
-    speedY: 0
+    speedY: 0,
+    x: 0,
+    y: 0
   };
   var walker2 = {
-    x: 100,
-    y: 100,
     speedX: 0,
-    speedY: 0
-  }
+    speedY: 0,
+    x: $("#board").width() - $("#walker2").width(),
+    y: $("#board").height() - $("#walker2").height()
+  };
 
-  // one-time setup
-  var interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL); // execute newFrame every 0.0166 seconds (60 Frames per second)
+  // setup
+  var interval = setInterval(makeNewFrame, MILLISECONDS_PER_FRAME);
   $(document).on("keydown", handleKeyDown); // change 'eventType' to the type of event you want to handle
   $(document).on("keyup", handleKeyUp);
   $("#walker1").on("click", function () {
@@ -35,7 +30,6 @@ function runProgram() {
   $("#walker2").on("click", function () {
     changeColor(this);
   });
-
   ////////////////////////////////////////////////////////////////////////////////
   ///////////////////////// CORE LOGIC ///////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
@@ -44,7 +38,7 @@ function runProgram() {
   On each "tick" of the timer, a new frame is dynamically drawn using JavaScript
   by calling this function and executing the code inside.
   */
-  function newFrame() {
+  function makeNewFrame() {
     repositionGameItem();
     wallCollision();
     redrawGameItem();

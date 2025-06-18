@@ -1,7 +1,7 @@
 // variable declarations
 
-// constant variables
-var squareLength = 20;
+// constants
+const squareLength = 20;
 
 // jQuery objects
 var highScoreElement = $("#highScore");
