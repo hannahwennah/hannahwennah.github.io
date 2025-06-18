@@ -11,77 +11,69 @@ function runProgram() {
     speedX: 0,
     speedY: 0,
     x: 0,
-    y: 0
+    y: 0,
   };
   var walker2 = {
     speedX: 0,
     speedY: 0,
     x: $("#board").width() - $("#walker2").width(),
-    y: $("#board").height() - $("#walker2").height()
+    y: $("#board").height() - $("#walker2").height(),
   };
 
   // setup
-  var interval = setInterval(makeNewFrame, MILLISECONDS_PER_FRAME);
-  $(document).on("keydown", handleKeyDown); // change 'eventType' to the type of event you want to handle
+  $(document).on("keydown", handleKeyDown);
   $(document).on("keyup", handleKeyUp);
+
   $("#walker1").on("click", function () {
     changeColor(this);
   });
   $("#walker2").on("click", function () {
     changeColor(this);
   });
-  ////////////////////////////////////////////////////////////////////////////////
-  ///////////////////////// CORE LOGIC ///////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////
 
-  /* 
-  On each "tick" of the timer, a new frame is dynamically drawn using JavaScript
-  by calling this function and executing the code inside.
-  */
-  function makeNewFrame() {
-    repositionGameItem();
-    wallCollision();
-    redrawGameItem();
-  }
+  var interval = setInterval(makeNewFrame, MILLISECONDS_PER_FRAME);
 
-  /* 
-  Called in response to events.
-  */
+  // function definitions
+
   function handleKeyDown(event) {
-    if (event.key === "ArrowLeft") {
+    if (event.key === "a") {
       walker1.speedX -= 5;
-    } else if (event.key === "ArrowUp") {
-      walker1.speedY -= 5;
-    } else if (event.key === "ArrowRight") {
-      walker1.speedX += 5;
-    } else if (event.key === "ArrowDown") {
-      walker1.speedY += 5;
-    } else if (event.key === "a") {
-      walker2.speedX -= 5;
     } else if (event.key === "w") {
-      walker2.speedY -= 5;
+      walker1.speedY -= 5;
     } else if (event.key === "d") {
-      walker2.speedX += 5;
+      walker1.speedX += 5;
     } else if (event.key === "s") {
+      walker1.speedY += 5;
+    } else if (event.key === "ArrowLeft") {
+      walker2.speedX -= 5;
+    } else if (event.key === "ArrowUp") {
+      walker2.speedY -= 5;
+    } else if (event.key === "ArrowRight") {
+      walker2.speedX += 5;
+    } else if (event.key === "ArrowDown") {
       walker2.speedY += 5;
     }
   }
 
   function handleKeyUp(event) {
-    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+    if (event.key === "a" || event.key === "d") {
       walker1.speedX = 0;
-    } else if (event.key === "ArrowUp" || event.key === "ArrowDown") {
-      walker1.speedY = 0;
-    } else if (event.key === "a" || event.key === "d") {
-      walker2.speedX = 0;
     } else if (event.key === "w" || event.key === "s") {
+      walker1.speedY = 0;
+    } else if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+      walker2.speedX = 0;
+    } else if (event.key === "ArrowUp" || event.key === "ArrowDown") {
       walker2.speedY = 0;
     }
   }
 
-  ////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////
+  function makeNewFrame() {
+    repositionGameItem(); // updates the x and y data of both walkers
+    wallCollision(); // updates in case bumped into wall
+    redrawGameItem(); // redraws both walkers
+  }
+
+  // helper function definitions
 
   function changeColor(walker) {
     var randomColor = "#000000".replace(/0/g, function () {
@@ -89,7 +81,7 @@ function runProgram() {
     });
     $(walker).css("background-color", randomColor);
   }
-  
+
   function endGame() {
     // stop the interval timer
     clearInterval(interval);
@@ -110,17 +102,30 @@ function runProgram() {
     walker2.y += walker2.speedY;
   }
   // review rubric
-  function wallCollision() { // fix this i don't like how it works ! change snake key presses
-    if (walker1.x < 0 || walker1.x + $("#walker1").width() > $("#board").width()) {
+  function wallCollision() {
+    // fix this i don't like how it works ! change snake key presses
+    if (
+      walker1.x < 0 ||
+      walker1.x + $("#walker1").width() > $("#board").width()
+    ) {
       walker1.x -= walker1.speedX;
     }
-    if (walker1.y < 0 || walker1.y + $("#walker1").height() > $("#board").height()) {
+    if (
+      walker1.y < 0 ||
+      walker1.y + $("#walker1").height() > $("#board").height()
+    ) {
       walker1.y -= walker1.speedY;
     }
-    if (walker2.x < 0 || walker2.x + $("#walker2").width() > $("#board").width()) {
+    if (
+      walker2.x < 0 ||
+      walker2.x + $("#walker2").width() > $("#board").width()
+    ) {
       walker2.x -= walker2.speedX;
     }
-    if (walker2.y < 0 || walker2.y + $("#walker2").height() > $("#board").height()) {
+    if (
+      walker2.y < 0 ||
+      walker2.y + $("#walker2").height() > $("#board").height()
+    ) {
       walker2.y -= walker2.speedY;
     }
   }
