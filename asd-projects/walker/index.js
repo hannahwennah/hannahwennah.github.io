@@ -8,16 +8,20 @@ function runProgram() {
 
   // variables
   var walker1 = {
+    height: $("#walker1").height(),
     speedX: 0,
     speedY: 0,
+    width: $("#walker1").width(),
     x: 0,
-    y: 0,
+    y: 0
   };
   var walker2 = {
+    height: $("#walker2").height(),
     speedX: 0,
     speedY: 0,
+    width: $("#walker2").width(),
     x: $("#board").width() - $("#walker2").width(),
-    y: $("#board").height() - $("#walker2").height(),
+    y: $("#board").height() - $("#walker2").height()
   };
 
   // setup
@@ -69,7 +73,6 @@ function runProgram() {
 
   function makeNewFrame() {
     repositionGameItem(); // updates the x and y data of both walkers
-    wallCollision(); // updates in case bumped into wall
     redrawGameItem(); // redraws both walkers
   }
 
@@ -100,33 +103,33 @@ function runProgram() {
     walker1.y += walker1.speedY;
     walker2.x += walker2.speedX;
     walker2.y += walker2.speedY;
+    wallCollision();
   }
   // review rubric
   function wallCollision() {
-    // fix this i don't like how it works ! change snake key presses
-    if (
-      walker1.x < 0 ||
-      walker1.x + $("#walker1").width() > $("#board").width()
-    ) {
-      walker1.x -= walker1.speedX;
+    if (walker1.x < 0) {
+      walker1.x = 0;
     }
-    if (
-      walker1.y < 0 ||
-      walker1.y + $("#walker1").height() > $("#board").height()
-    ) {
-      walker1.y -= walker1.speedY;
+    if (walker1.x > $("#board").width() - walker1.width) {
+      walker1.x = $("#board").width() - walker1.width;
     }
-    if (
-      walker2.x < 0 ||
-      walker2.x + $("#walker2").width() > $("#board").width()
-    ) {
-      walker2.x -= walker2.speedX;
+    if (walker1.y < 0) {
+      walker1.y = 0;
     }
-    if (
-      walker2.y < 0 ||
-      walker2.y + $("#walker2").height() > $("#board").height()
-    ) {
-      walker2.y -= walker2.speedY;
+    if (walker1.y > $("#board").height() - walker1.height) {
+      walker1.y = $("#board").height() - walker1.height;
+    }
+    if (walker2.x < 0) {
+      walker2.x = 0;
+    }
+    if (walker2.x > $("#board").width() - walker2.width) {
+      walker2.x = $("#board").width() - walker2.width;
+    }
+    if (walker2.y < 0) {
+      walker2.y = 0;
+    }
+    if (walker2.y > $("#board").height() - walker2.height) {
+      walker2.y = $("#board").height() - walker2.height;
     }
   }
 }

@@ -21,15 +21,17 @@ body {
 }
 
 .walker {
-  height: 35px;
   position: absolute;
-  width: 35px;
 }
 
 #walker1 {
   background-color: green;
+  height: 35px;
+  width: 35px;
 }
 
 #walker2 {
   background-color: blueviolet;
+  height: 35px;
+  width: 35px;
 }
