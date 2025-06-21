@@ -7,40 +7,23 @@ function runProgram() {
   const MILLISECONDS_PER_FRAME = 1000 / FRAMES_PER_SECOND;
 
   // variables
-  var walkers = [{
-    height: $("#walker1").height(),
-    speedX: 0,
-    speedY: 0,
-    width: $("#walker1").width(),
-    x: 0,
-    y: 0
-  }, {
-    height: $("#walker2").height(),
-    speedX: 0,
-    speedY: 0,
-    width: $("#walker2").width(),
-    x: $("#board").width() - $("#walker2").width(),
-    y: $("#board").height() - $("#walker2").height()
-  }];
-  /*
-  var walker1 = {
-    height: $("#walker1").height(),
-    speedX: 0,
-    speedY: 0,
-    width: $("#walker1").width(),
-    x: 0,
-    y: 0
-  };
-  var walker2 = {
-    height: $("#walker2").height(),
-    speedX: 0,
-    speedY: 0,
-    width: $("#walker2").width(),
-    x: $("#board").width() - $("#walker2").width(),
-    y: $("#board").height() - $("#walker2").height()
-  };
+  var walkers = [
+    {
+      side: $("#walker1").height(),
+      speedX: 0,
+      speedY: 0,
+      x: 0,
+      y: 0,
+    },
+    {
+      side: $("#walker2").height(),
+      speedX: 0,
+      speedY: 0,
+      x: $("#board").width() - $("#walker2").width(),
+      y: $("#board").height() - $("#walker2").height(),
+    },
+  ];
 
-  */
   // setup
   $(document).on("keydown", handleKeyDown);
   $(document).on("keyup", handleKeyUp);
@@ -89,8 +72,8 @@ function runProgram() {
   }
 
   function makeNewFrame() {
-    repositionGameItem(); // updates the x and y data of both walkers
-    redrawGameItem(); // redraws both walkers
+    repositionWalker();
+    remakeWalker();
   }
 
   // helper function definitions
@@ -103,50 +86,35 @@ function runProgram() {
   }
 
   function endGame() {
-    // stop the interval timer
-    clearInterval(interval);
-
-    // turn off event handlers
-    $(document).off();
+    clearInterval(interval); // stop the interval timer
+    $(document).off(); // turn off event handlers
   }
 
-  function redrawGameItem() {
+  function remakeWalker() {
     $("#walker1").css("left", walkers[0].x).css("top", walkers[0].y);
     $("#walker2").css("left", walkers[1].x).css("top", walkers[1].y);
   }
 
-  function repositionGameItem() {
-    walkers[0].x += walkers[0].speedX;
-    walkers[0].y += walkers[0].speedY;
-    walkers[1].x += walkers[1].speedX;
-    walkers[1].y += walkers[1].speedY;
-    wallCollision();
+  function repositionWalker() {
+    for (i = 0; i < walkers.length; i++) {
+      walkers[i].x += walkers[i].speedX;
+      walkers[i].y += walkers[i].speedY;
+      hitWall(i);
+    }
   }
-  // review rubric
-  function wallCollision() {
-    if (walkers[0].x < 0) {
-      walkers[0].x = 0;
+
+  function hitWall(i) {
+    if (walkers[i].x < 0) {
+      walkers[i].x = 0;
     }
-    if (walkers[0].x > $("#board").width() - walkers[0].width) {
-      walkers[0].x = $("#board").width() - walkers[0].width;
+    if (walkers[i].x > $("#board").width() - walkers[i].side) {
+      walkers[i].x = $("#board").width() - walkers[i].side;
     }
-    if (walkers[0].y < 0) {
-      walkers[0].y = 0;
+    if (walkers[i].y < 0) {
+      walkers[i].y = 0;
     }
-    if (walkers[0].y > $("#board").height() - walkers[0].height) {
-      walkers[0].y = $("#board").height() - walkers[0].height;
-    }
-    if (walkers[1].x < 0) {
-      walkers[1].x = 0;
-    }
-    if (walkers[1].x > $("#board").width() - walkers[1].width) {
-      walkers[1].x = $("#board").width() - walkers[1].width;
-    }
-    if (walkers[1].y < 0) {
-      walkers[1].y = 0;
-    }
-    if (walkers[1].y > $("#board").height() - walkers[1].height) {
-      walkers[1].y = $("#board").height() - walkers[1].height;
+    if (walkers[i].y > $("#board").height() - walkers[i].side) {
+      walkers[i].y = $("#board").height() - walkers[i].side;
     }
   }
 }
