@@ -103,7 +103,7 @@ function runProgram() {
     }
   }
 
-  function hitWall(i) {
+  function hitWall(i) { // repositions the walker at the wall it hit
     if (walkers[i].x < 0) {
       walkers[i].x = 0;
     }
