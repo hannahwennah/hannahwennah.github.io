@@ -1,7 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+
+body {
+  align-items: center;
+  display: flex;
+  height: 99vh;
+  justify-content: center;
+  font-family: "nunito";
+  font-size: 12px;
+  font-weight: 350;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+}
+
 .square {
-  width: 20px;
   height: 20px;
   position: absolute;
+  width: 20px;
 }
 
 body > div {
@@ -10,7 +25,7 @@ body > div {
 
 #button-box {
   position: relative;
-  top: 350px;
+  top: 375px;
 }
 
 button {
@@ -19,7 +34,7 @@ button {
   margin-left: 12px;
 }
 
-#apply {
+#filter {
   background: green;
 }
 
