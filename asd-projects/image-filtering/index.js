@@ -1,7 +1,7 @@
 // This is a small program. There are only two sections. This first section is what runs
 // as soon as the page loads.
 $(document).ready(function () {
-  render($("#display"), image);
+  render(image);
   $("#filter").on("click", applyAndRender);
   $("#reset").on("click", resetAndRender);
 });
@@ -13,7 +13,7 @@ $(document).ready(function () {
 // this function resets the image to its original value; do not change this function
 function resetAndRender() {
   reset();
-  render($("#display"), image);
+  render(image);
 }
 
 // this function applies the filters to the image and is where you should call
@@ -25,7 +25,7 @@ function applyAndRender() {
   applyFilter(reddify);
   applyFilterNoBackground(reddify);
   // do not change the below line of code
-  render($("#display"), image);
+  render(image);
 }
 
 /////////////////////////////////////////////////////////

@@ -40,12 +40,12 @@ for (var i = 0; i < image.length; i++){ // iterates through each row in the imag
 }
 
 // this function uses jQuery to create the image on the screen based on the image data
-function render(element, image){
+function render(image){
   for (var r = 0; r < image.length; r++) {
     for (var c = 0; c < image[r].length; c++) {
       var color = image[r][c];
       
-      $("<div>").appendTo(element)
+      $("<div>").appendTo("#display")
               .addClass("square")
               .css('left', c * SQUARE_SIZE)
               .css('top', r * SQUARE_SIZE)
