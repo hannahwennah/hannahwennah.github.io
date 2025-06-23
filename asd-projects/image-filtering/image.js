@@ -27,15 +27,16 @@ const image = [
     ["rgb(150, 150, 150)", "rgb(100, 50, 0)", "rgb(100, 50, 0)", "rgb(100, 50, 0)", "rgb(100, 50, 0)", "rgb(150, 150, 150)", "rgb(150, 150, 150)", "rgb(150, 150, 150)", "rgb(150, 150, 150)", "rgb(100, 50, 0)", "rgb(100, 50, 0)", "rgb(100, 50, 0)", "rgb(100, 50, 0)", "rgb(150, 150, 150)"]];
 
 // this will keep a backup copy of the original image data
-const og = [];
+const og = []; // b/c you can't js copy by reference
 
 // copy the image data into the og variable
-for (var i = 0; i < image.length; i++){
-  let t = [];
+for (var i = 0; i < image.length; i++){ // iterates through each row in the image
+  let t = []; // makes a new array
   for (var j = 0; j < image[i].length; j++){
-    t.push(image[i][j]);
+    t.push(image[i][j]); // pushes each element in a row into that array
   }
-  og.push(t);
+  og.push(t); // pushes the array into the new one
+  // you can't just go element by element since each row is a diff array
 }
 
 // this function uses jQuery to create the image on the screen based on the image data
@@ -60,7 +61,7 @@ function rgbStringToArray(rgbStr) {
         .replace(/ /g, '') // replace ' ' with ''
         .split(',');       // separate into Array
   
-  rgbArr[RED] = Number(rgbArr[RED]);
+  rgbArr[RED] = Number(rgbArr[RED]); // turns "150" into 150 as a number and stores it in rgbArr[0]
   rgbArr[GREEN] = Number(rgbArr[GREEN]);
   rgbArr[BLUE] = Number(rgbArr[BLUE]);
 
