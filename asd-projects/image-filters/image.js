@@ -289,6 +289,31 @@ var image = luigi;
 
 // function definitions
 
+function convertRGBArrayToString(array) {
+  return "rgb(" + array[RED] + ", " + array[GREEN] + ", " + array[BLUE] + ")";
+}
+
+function convertRGBStringToArray(string) {
+  var array = string
+    .substring(4, string.length - 1) // removes "rgb(" and ")"
+    .replace(/ /g, "") // replaces ' ' with ''
+    .split(","); // splits the string into an R, G, and B
+  for (let i = 0; i < array.length; i++) {
+    array[i] = Number(array[i]); // converts each string to a number
+  }
+  return array;
+}
+
+function copyImage() {
+  for (let i = 0; i < image.length; i++) {
+    let subarray = [];
+    for (let j = 0; j < image[i].length; j++) {
+      subarray.push(image[i][j]);
+    }
+    originalImage.push(subarray); // copies over each subarray one by one
+  }
+}
+
 function render(image) {
   for (let i = 0; i < image.length; i++) {
     for (let j = 0; j < image[i].length; j++) {
@@ -302,43 +327,10 @@ function render(image) {
   }
 }
 
-function rgbStringToArray(rgbStr) {
-  var rgbArr = rgbStr
-    .substring(4, rgbStr.length - 1) // remove "rgb(" and ")"
-    .replace(/ /g, "") // replace ' ' with ''
-    .split(","); // separate into Array
-
-  rgbArr[RED] = Number(rgbArr[RED]); // turns "150" into 150 as a number and stores it in rgbArr[0]
-  rgbArr[GREEN] = Number(rgbArr[GREEN]);
-  rgbArr[BLUE] = Number(rgbArr[BLUE]);
-  return rgbArr;
-}
-
-// this function converts an array into an RGB string
-function rgbArrayToString(rgbArray) {
-  return (
-    "rgb(" + rgbArray[RED] + "," + rgbArray[GREEN] + "," + rgbArray[BLUE] + ")"
-  );
-}
-
-// this function will reset the image data back to its original values
 function reset() {
-  // copy the image data into the og variable
-  for (var i = 0; i < image.length; i++) {
-    for (var j = 0; j < image[i].length; j++) {
-      image[i][j] = originalImage[i][j];
+  for (let i = 0; i < image.length; i++) {
+    for (let j = 0; j < image[i].length; j++) {
+      image[i][j] = originalImage[i][j]; // copies over the original image
     }
   }
-}
-
-// main code
-// copy the image data into the og variable
-for (var i = 0; i < image.length; i++) {
-  // iterates through each row in the image
-  let t = []; // makes a new array
-  for (var j = 0; j < image[i].length; j++) {
-    t.push(image[i][j]); // pushes each element in a row into that array
-  }
-  originalImage.push(t); // pushes the array into the new one
-  // you can't just go element by element since each row is a diff array
 }

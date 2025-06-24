@@ -4,6 +4,7 @@
 var image = luigi;
 
 $(document).ready(function () {
+  copyImage();
   render(image);
   $("#filter").on("click", applyAndRender);
   $("#reset").on("click", resetAndRender);
@@ -40,9 +41,9 @@ function applyFilter(filterFunction) {
   for (let i = 0; i < image.length; i++) {
     for (let j = 0; j < image[i].length; j++) {
       var pixel = image[i][j];
-      var pixelArray = rgbStringToArray(pixel); // modify color values here later
+      var pixelArray = convertRGBStringToArray(pixel); // modify color values here later
       filterFunction(pixelArray);
-      var updatedPixel = rgbArrayToString(pixelArray);
+      var updatedPixel = convertRGBArrayToString(pixelArray);
       image[i][j] = updatedPixel;
     }
   }
@@ -55,9 +56,9 @@ function applyFilterNoBackground(filterFunction) {
   for (let i = 0; i < image.length; i++) {
     for (let j = 0; j < image[i].length; j++) {
       if (image[i][j] !== backgroundColor) {
-        var pixelArray = rgbStringToArray(image[i][j]);
+        var pixelArray = convertRGBStringToArray(image[i][j]);
         filterFunction(pixelArray);
-        image[i][j] = rgbArrayToString(pixelArray);
+        image[i][j] = convertRGBArrayToString(pixelArray);
       }
     }
   }
