@@ -4,7 +4,7 @@
 body {
   align-items: center;
   display: flex;
-  height: 99vh;
+  height: 45vh; /* ?? */
   justify-content: center;
   font-family: "nunito";
   font-size: 12px;

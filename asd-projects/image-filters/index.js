@@ -1,5 +1,8 @@
 // This is a small program. There are only two sections. This first section is what runs
 // as soon as the page loads.
+
+var image = luigi;
+
 $(document).ready(function () {
   render(image);
   $("#filter").on("click", applyAndRender);
