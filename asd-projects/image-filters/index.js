@@ -100,13 +100,13 @@ function increaseWarmth(RGBAArray, color1, color2) {
   RGBAArray[BLUE] = limitSaturation(RGBAArray[BLUE] - 15);
 }
 
-function limitSaturation(number) {
+function limitSaturation(saturation) {
   // 6
-  return number < 0 ? 0 : number > 255 ? 255 : number;
+  return saturation < 0 ? 0 : saturation > 255 ? 255 : saturation;
 }
 
-function limitOpacity(number) {
-  return number < 0 ? 0 : number > 1 ? 1 : number;
+function limitOpacity(opacity) {
+  return opacity < 0 ? 0 : opacity > 1 ? 1 : opacity;
 }
 
 function setSaturationTo200(RGBAArray, color1, color2) {
