@@ -75,9 +75,9 @@ function decreaseWarmth(RGBAArray, color1, color2) {
   RGBAArray[BLUE] = limitSaturation(RGBAArray[BLUE] + 25);
 }
 
-function increaseLightness(RGBAArray, color1, color2) {
-  for (let i = 0; i < RGBAArray.length - 1; i++) {
-    RGBAArray[i] = limitSaturation(RGBAArray[i] + 25);
+function increaseLightness(array, color1, color2) {
+  for (let i = 0; i < array.length - 1; i++) {
+    array[i] = limitSaturation(array[i] + 25);
   }
 }
 
