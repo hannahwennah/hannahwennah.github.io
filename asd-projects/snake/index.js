@@ -79,7 +79,7 @@ $("#brown").on("click", function () {
 });
 $("#green").on("click", function () {
   changeSnakeColor(this.id);
-})
+});
 $("#pink").on("click", function () {
   changeSnakeColor(this.id);
 });
@@ -89,13 +89,13 @@ $("#purple").on("click", function () {
 
 $("#slow").on("click", function () {
   changeSnakeSpeed(this.id);
-})
+});
 $("#medium").on("click", function () {
   changeSnakeSpeed(this.id);
-})
+});
 $("#fast").on("click", function () {
   changeSnakeSpeed(this.id);
-})
+});
 
 start(); // starts the game
 
@@ -110,7 +110,8 @@ function start() {
   updateInterval = setInterval(update, delay); // 5A
 }
 
-function update() { // 5B
+function update() {
+  // 5B
   moveSnake();
   if (hitApple()) {
     handleAppleHit();
@@ -134,7 +135,8 @@ function end() {
   }
 }
 
-function checkForNewDirection(event) { // 6B
+function checkForNewDirection(event) {
+  // 6B
   if (key === "ArrowLeft" || key === "a") {
     snake.head.direction = "left";
   } else if (key === "ArrowUp" || key === "w") {
@@ -156,7 +158,7 @@ function handleAppleHit() {
     snake.head.column = randomPosition.column;
     snake.head.row = randomPosition.row;
   }
-  var column, row // 11
+  var column, row; // 11
   if (snake.tail.direction === "left") {
     // 11
     column = snake.tail.column + 1;
@@ -331,7 +333,10 @@ function handleKeyDown(event) {
 
 function makeApple() {
   // 4B-1
-  apple.element = $("<div>").addClass("apple").css("background-color", appleColor).appendTo(board);
+  apple.element = $("<div>")
+    .addClass("apple")
+    .css("background-color", appleColor)
+    .appendTo(board);
   var randomPosition = getRandomAvailablePosition();
   apple.column = randomPosition.column;
   apple.row = randomPosition.row;
@@ -363,7 +368,8 @@ function makeCheckerboard() {
   }
 }
 
-function makeSnakeSquare(column, row) { // 4C-1
+function makeSnakeSquare(column, row) {
+  // 4C-1
   var snakeSquare = {};
   snakeSquare.element = $("<div>").addClass("snake").appendTo(board);
   $(".snake").css("background-color", snakeColor);
@@ -372,7 +378,8 @@ function makeSnakeSquare(column, row) { // 4C-1
   snakeSquare.row = row;
   reposition(snakeSquare);
   snake.body.push(snakeSquare);
-  if (snake.body.length === 1) { // checks whether this snake square is the head
+  if (snake.body.length === 1) {
+    // checks whether this snake square is the head
     snake.head = snake.body[0]; // 4C
     snakeSquare.element.attr("id", "snake-head");
     $("#snake-head").css("background-color", snakeHeadColor);

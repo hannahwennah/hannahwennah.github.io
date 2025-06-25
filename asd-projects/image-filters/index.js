@@ -1,87 +1,83 @@
-// This is a small program. There are only two sections. This first section is what runs
-// as soon as the page loads.
+// variable declarations
 
+// variables
 var image = luigi;
 
+// setup
+
 $(document).ready(function () {
-  copyImage();
-  render(image);
+  copy();
+  render();
   $("#filter").on("click", applyAndRender);
   $("#reset").on("click", resetAndRender);
 });
 
-/////////////////////////////////////////////////////////
-//////// event handler functions are below here /////////
-/////////////////////////////////////////////////////////
+// function definitions
 
-// this function resets the image to its original value; do not change this function
+function applyAndRender() {
+  applyFilter(GREEN, increaseBy, BLUE);
+  applyFilter(RED, setTo200);
+  applyFilterExcludeBackground(GREEN, decrease);
+  applyFilterExcludeBackground(BLUE, setTo200);
+  render();
+}
+
 function resetAndRender() {
   reset();
-  render(image);
+  render();
 }
 
-// this function applies the filters to the image and is where you should call
-// all of your apply functions
-function applyAndRender() {
-  // Multiple TODOs: Call your apply function(s) here
-  applyFilterNoBackground(decreaseBlue);
-  applyFilter(increaseGreenByBlue);
-  applyFilter(reddify);
-  applyFilterNoBackground(reddify);
-  // do not change the below line of code
-  render(image);
-}
+// helper function definitions
 
-/////////////////////////////////////////////////////////
-// "apply" and "filter" functions should go below here //
-/////////////////////////////////////////////////////////
-
-// TODO 1, 2, 3 & 5: Create the applyFilter function here
-function applyFilter(filterFunction) {
+function applyFilter(color1, filter, color2) {
+  // 1, 2, 3, and 5
   for (let i = 0; i < image.length; i++) {
     for (let j = 0; j < image[i].length; j++) {
-      var pixel = image[i][j];
-      var pixelArray = convertRGBStringToArray(pixel); // modify color values here later
-      filterFunction(pixelArray);
-      var updatedPixel = convertRGBArrayToString(pixelArray);
-      image[i][j] = updatedPixel;
+      var RGBarray = convertRGBStringToArray(image[i][j]);
+      filter(color1, RGBarray, color2);
+      image[i][j] = convertRGBArrayToString(RGBarray);
     }
   }
 }
 
-// TODO 9 Create the applyFilterNoBackground function
-
-function applyFilterNoBackground(filterFunction) {
+function applyFilterExcludeBackground(color1, filter, color2) {
+  // 9
   var backgroundColor = image[0][0];
   for (let i = 0; i < image.length; i++) {
     for (let j = 0; j < image[i].length; j++) {
       if (image[i][j] !== backgroundColor) {
-        var pixelArray = convertRGBStringToArray(image[i][j]);
-        filterFunction(pixelArray);
-        image[i][j] = convertRGBArrayToString(pixelArray);
+        var RGBArray = convertRGBStringToArray(image[i][j]);
+        filter(color1, RGBArray, color2);
+        image[i][j] = convertRGBArrayToString(RGBArray);
       }
     }
   }
 }
 
-// TODO 6: Create the keepInBounds function
-function keepInBounds(number) {
+function decrease(color1, RGBArray, color2) {
+  // 7 and 8
+  RGBArray[color1] = limit(RGBArray[color1] - 50);
+}
+
+function decreaseBy(color1, RGBArray, color2) { // decreases color1 by color2
+  RGBArray[color1] = limit(RGBArray[color1] - RGBArray[color2]);
+}
+
+function increase(color1, RGBArray, color2) {
+  RGBArray[color1] = limit(RGBArray[color1] + 50);
+}
+
+function increaseBy(color1, RGBArray, color2) { //
+  // 7 and 8: increases color1 by color2
+  RGBArray[color1] = limit(RGBArray[color1] + RGBArray[color2]);
+}
+
+function limit(number) {
+  // 6
   return number < 0 ? 0 : number > 255 ? 255 : number;
 }
 
-// TODO 4: Create reddify filter function
-function reddify(rgbArray) {
-  rgbArray[RED] = 200;
+function setTo200(color1, RGBArray, color2) {
+  // 4
+  RGBArray[color1] = 200;
 }
-
-// TODO 7 & 8: Create more filter functions
-
-function decreaseBlue(rgbArray) {
-  rgbArray[BLUE] = keepInBounds(rgbArray[BLUE] - 50);
-}
-
-function increaseGreenByBlue(rgbArray) {
-  rgbArray[GREEN] = keepInBounds(rgbArray[GREEN] + rgbArray[BLUE]);
-}
-
-// CHALLENGE code goes below here

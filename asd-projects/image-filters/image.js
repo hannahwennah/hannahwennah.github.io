@@ -289,22 +289,22 @@ var image = luigi;
 
 // function definitions
 
-function convertRGBArrayToString(array) {
-  return "rgb(" + array[RED] + ", " + array[GREEN] + ", " + array[BLUE] + ")";
+function convertRGBArrayToString(RGBarray) {
+  return "rgb(" + RGBarray[RED] + ", " + RGBarray[GREEN] + ", " + RGBarray[BLUE] + ")";
 }
 
-function convertRGBStringToArray(string) {
-  var array = string
-    .substring(4, string.length - 1) // removes "rgb(" and ")"
+function convertRGBStringToArray(RGBstring) {
+  var RGBarray = RGBstring
+    .substring(4, RGBstring.length - 1) // removes "rgb(" and ")"
     .replace(/ /g, "") // replaces ' ' with ''
     .split(","); // splits the string into an R, G, and B
-  for (let i = 0; i < array.length; i++) {
-    array[i] = Number(array[i]); // converts each string to a number
+  for (let i = 0; i < RGBarray.length; i++) {
+    RGBarray[i] = Number(RGBarray[i]); // converts each string to a number
   }
-  return array;
+  return RGBarray;
 }
 
-function copyImage() {
+function copy() {
   for (let i = 0; i < image.length; i++) {
     let subarray = [];
     for (let j = 0; j < image[i].length; j++) {
@@ -314,7 +314,7 @@ function copyImage() {
   }
 }
 
-function render(image) {
+function render() {
   for (let i = 0; i < image.length; i++) {
     for (let j = 0; j < image[i].length; j++) {
       $("<div>")
