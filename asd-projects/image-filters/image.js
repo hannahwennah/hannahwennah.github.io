@@ -314,6 +314,18 @@ function convertRGBAStringToArray(RGBAstring) {
   return RGBAarray;
 }
 
+function convertRGBAToHSLA(array) {
+  normalize(array);
+  var maximum = getMaximum(array);
+  var minimum = getMinimum(array);
+  var hue = limitHue(calculateHue(array, maximum, minimum));
+  var lightness = calculateLightness(maximum, minimum);
+  var saturation = calculateSaturation(lightness, maximum, minimum);
+  array[0] = Math.round(hue);
+  array[1] = Math.round(saturation * 100); // converts saturation to a percentage
+  array[2] = Math.round(lightness * 100); // converts lightness to a percentage
+}
+
 function copy() {
   for (let i = 0; i < image.length; i++) {
     let subarray = [];
@@ -343,5 +355,55 @@ function reset() {
     for (let j = 0; j < image[i].length; j++) {
       image[i][j] = originalImage[i][j]; // copies over the original image
     }
+  }
+}
+
+// helper function definitions
+
+function calculateHue(RGBAArray, maximum, minimum) {
+  if (maximum === minimum) {
+    // checks whether R, G, and B are equal
+    return 0;
+  } else if (maximum === RGBAArray[0]) {
+    return 60 * (((RGBAArray[1] - RGBAArray[2]) / (maximum - minimum)) % 6);
+  } else if (maximum === RGBAArray[1]) {
+    return 60 * ((RGBAArray[2] - RGBAArray[0]) / (maximum - minimum) + 2);
+  } else if (maximum === RGBAArray[2]) {
+    return 60 * ((RGBAArray[0] - RGBAArray[1]) / (maximum - minimum) + 4);
+  }
+}
+
+function calculateLightness(maximum, minimum) {
+  return (maximum + minimum) / 2;
+}
+
+function calculateSaturation(lightness, maximum, minimum) {
+  if (maximum === minimum) {
+    // checks whether R, G, and B are equal
+    return 0;
+  } else if (lightness < 0.5) {
+    return (maximum - minimum) / (maximum + minimum);
+  } else {
+    return (maximum - minimum) / (2 - maximum - minimum);
+  }
+}
+
+function getMaximum(RGBAArray) {
+  RGBAArray = RGBAArray.slice(0, 3).sort().concat(RGBAArray[3]); // sorts R, G, and B from least to greatest
+  return RGBAArray[2];
+}
+
+function getMinimum(RGBAArray) {
+  RGBAArray = RGBAArray.slice(0, 3).sort().concat(RGBAArray[3]); // sorts R, G, and B from least to greatest
+  return RGBAArray[0];
+}
+
+function limitHue(hue) {
+  return hue < 0 ? hue + 360 : hue;
+}
+
+function normalize(RGBAArray) {
+  for (let i = 0; i < RGBAArray.length - 1; i++) {
+    RGBAArray[i] /= 255; // changes R, G, and B to values between 0 and 1
   }
 }

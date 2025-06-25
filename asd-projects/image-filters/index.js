@@ -90,7 +90,6 @@ function increaseSaturation(RGBAArray, color1, color2) {
 }
 
 function increaseSaturationBy(RGBAArray, color1, color2) {
-  //
   // 7 and 8: increases color1 by color2
   RGBAArray[color1] = limitSaturation(RGBAArray[color1] + RGBAArray[color2]);
 }
@@ -100,13 +99,13 @@ function increaseWarmth(RGBAArray, color1, color2) {
   RGBAArray[BLUE] = limitSaturation(RGBAArray[BLUE] - 15);
 }
 
+function limitOpacity(opacity) {
+  return opacity < 0 ? 0 : opacity > 1 ? 1 : opacity;
+}
+
 function limitSaturation(saturation) {
   // 6
   return saturation < 0 ? 0 : saturation > 255 ? 255 : saturation;
-}
-
-function limitOpacity(opacity) {
-  return opacity < 0 ? 0 : opacity > 1 ? 1 : opacity;
 }
 
 function setSaturationTo200(RGBAArray, color1, color2) {
