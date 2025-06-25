@@ -5,10 +5,13 @@ const originalImage = []; // stores a copy of the original image
 
 const SQUARE_SIDE = 20;
 
+const HUE = 0; // corresponds to the index of the H in HSLA
+const SATURATION = 1; // corresponds to the index of the S in HSLA
+const LIGHTNESS = 2; // corresponds to the index of the L in HSLA
 const RED = 0; // corresponds to the index of the R in RGBA
 const GREEN = 1; // corresponds to the index of the G in RGBA
 const BLUE = 2; // corresponds to the index of the B in RGBA
-const ALPHA = 3; // corresponds to the index of the A in RGBA
+const ALPHA = 3; // corresponds to the index of the A in HSLA and RGBA
 
 const luigi = [
   [
@@ -290,28 +293,53 @@ var image = luigi;
 
 // function definitions
 
-function convertRGBAArrayToString(RGBAarray) {
+function convertHSLAArrayToString(HSLAArray) {
   return (
-    "rgba(" +
-    RGBAarray[RED] +
+    "hsla(" +
+    HSLAArray[HUE] +
     ", " +
-    RGBAarray[GREEN] +
-    ", " +
-    RGBAarray[BLUE] +
-    ", " +
-    RGBAarray[ALPHA] +
+    HSLAArray[SATURATION] +
+    "%, " +
+    HSLAArray[LIGHTNESS] +
+    "%, " +
+    HSLAArray[ALPHA] +
     ")"
   );
 }
 
-function convertRGBAStringToArray(RGBAstring) {
-  var RGBAarray = RGBAstring.substring(5, RGBAstring.length - 1) // removes "rgba(" and ")"
-    .replace(/ /g, "") // replaces ' ' with ''
-    .split(","); // splits the string into an R, G, B, and A
-  for (let i = 0; i < RGBAarray.length; i++) {
-    RGBAarray[i] = Number(RGBAarray[i]); // converts each string to a number
+function convertHSLAStringToArray(HSLAString) {
+  var HSLAArray = HSLAString.substring(5, HSLAString.length - 1) // removes "hsla(" and ")"
+    .replaceAll("%", "") // replaces % with ''
+    .replaceAll(" ", "") // replaces ' ' with ''
+    .split(",");
+  for (let i = 0; i < HSLAArray.length; i++) {
+    HSLAArray[i] = Number(HSLAArray[i]); // converts each string to a number
   }
-  return RGBAarray;
+  return HSLAArray;
+}
+
+function convertRGBAArrayToString(RGBAArray) {
+  return (
+    "rgba(" +
+    RGBAArray[RED] +
+    ", " +
+    RGBAArray[GREEN] +
+    ", " +
+    RGBAArray[BLUE] +
+    ", " +
+    RGBAArray[ALPHA] +
+    ")"
+  );
+}
+
+function convertRGBAStringToArray(RGBAString) {
+  var RGBAArray = RGBAString.substring(5, RGBAString.length - 1) // removes "rgba(" and ")"
+    .replaceAll(" ", "") // replaces ' ' with ''
+    .split(","); // splits the string into an R, G, B, and A
+  for (let i = 0; i < RGBAArray.length; i++) {
+    RGBAArray[i] = Number(RGBAArray[i]); // converts each string to a number
+  }
+  return RGBAArray;
 }
 
 function convertRGBAToHSLA(array) {
@@ -321,9 +349,9 @@ function convertRGBAToHSLA(array) {
   var hue = limitHue(calculateHue(array, maximum, minimum));
   var lightness = calculateLightness(maximum, minimum);
   var saturation = calculateSaturation(lightness, maximum, minimum);
-  array[0] = Math.round(hue);
-  array[1] = Math.round(saturation * 100); // converts saturation to a percentage
-  array[2] = Math.round(lightness * 100); // converts lightness to a percentage
+  array[HUE] = Math.round(hue);
+  array[SATURATION] = Math.round(saturation * 100); // converts saturation to a percentage
+  array[LIGHTNESS] = Math.round(lightness * 100); // converts lightness to a percentage
 }
 
 function copy() {
@@ -364,12 +392,14 @@ function calculateHue(RGBAArray, maximum, minimum) {
   if (maximum === minimum) {
     // checks whether R, G, and B are equal
     return 0;
-  } else if (maximum === RGBAArray[0]) {
-    return 60 * (((RGBAArray[1] - RGBAArray[2]) / (maximum - minimum)) % 6);
-  } else if (maximum === RGBAArray[1]) {
-    return 60 * ((RGBAArray[2] - RGBAArray[0]) / (maximum - minimum) + 2);
-  } else if (maximum === RGBAArray[2]) {
-    return 60 * ((RGBAArray[0] - RGBAArray[1]) / (maximum - minimum) + 4);
+  } else if (maximum === RGBAArray[RED]) {
+    return (
+      60 * (((RGBAArray[GREEN] - RGBAArray[BLUE]) / (maximum - minimum)) % 6)
+    );
+  } else if (maximum === RGBAArray[GREEN]) {
+    return 60 * ((RGBAArray[BLUE] - RGBAArray[RED]) / (maximum - minimum) + 2);
+  } else if (maximum === RGBAArray[BLUE]) {
+    return 60 * ((RGBAArray[RED] - RGBAArray[GREEN]) / (maximum - minimum) + 4);
   }
 }
 
@@ -389,12 +419,12 @@ function calculateSaturation(lightness, maximum, minimum) {
 }
 
 function getMaximum(RGBAArray) {
-  RGBAArray = RGBAArray.slice(0, 3).sort().concat(RGBAArray[3]); // sorts R, G, and B from least to greatest
+  RGBAArray = RGBAArray.slice(0, 3).sort().concat(RGBAArray[ALPHA]); // sorts R, G, and B from least to greatest
   return RGBAArray[2];
 }
 
 function getMinimum(RGBAArray) {
-  RGBAArray = RGBAArray.slice(0, 3).sort().concat(RGBAArray[3]); // sorts R, G, and B from least to greatest
+  RGBAArray = RGBAArray.slice(0, 3).sort().concat(RGBAArray[ALPHA]); // sorts R, G, and B from least to greatest
   return RGBAArray[0];
 }
 
