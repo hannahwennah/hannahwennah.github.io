@@ -318,6 +318,18 @@ function convertHSLAStringToArray(HSLAString) {
   return HSLAArray;
 }
 
+function convertHSLAToRGBA(array) {
+  normalizeHSLA(array);
+  var chroma = calculateChroma(array[LIGHTNESS], array[SATURATION]);
+  var m = calculatem(chroma, array[LIGHTNESS]);
+  var X = calculateX(chroma, array[HUE]);
+  calculateRGB(array, chroma, X);
+  addm(array, m);
+  for (i = 0; i < array.length - 1; i++) {
+    array[i] = Math.round(array[i] * 255);
+  }
+}
+
 function convertRGBAArrayToString(RGBAArray) {
   return (
     "rgba(" +
@@ -343,7 +355,7 @@ function convertRGBAStringToArray(RGBAString) {
 }
 
 function convertRGBAToHSLA(array) {
-  normalize(array);
+  normalizeRGBA(array);
   var maximum = getMaximum(array);
   var minimum = getMinimum(array);
   var hue = limitHue(calculateHue(array, maximum, minimum));
@@ -388,6 +400,16 @@ function reset() {
 
 // helper function definitions
 
+function addm(RGBAArray, m) {
+  for (i = 0; i < RGBAArray.length - 1; i++) {
+    RGBAArray[i] += m;
+  }
+}
+
+function calculateChroma(lightness, saturation) {
+  return (1 - Math.abs((2 * lightness) - 1)) * saturation;
+}
+
 function calculateHue(RGBAArray, maximum, minimum) {
   if (maximum === minimum) {
     // checks whether R, G, and B are equal
@@ -407,6 +429,38 @@ function calculateLightness(maximum, minimum) {
   return (maximum + minimum) / 2;
 }
 
+function calculatem(chroma, lightness) {
+  return lightness - (chroma / 2);
+}
+
+function calculateRGB(array, chroma, X) {
+  if (array[HUE] >= 0 && array[HUE] < 60) {
+    array[RED] = chroma;
+    array[GREEN] = X;
+    array[BLUE] = 0;
+  } else if (array[HUE] >= 60 && array[HUE] < 120) {
+    array[RED] = X;
+    array[GREEN] = chroma;
+    array[BLUE] = 0;
+  } else if (array[HUE] >= 120 && array[HUE] < 180) {
+    array[RED] = 0;
+    array[GREEN] = chroma;
+    array[BLUE] = X;
+  } else if (array[HUE] >= 180 && array[HUE] < 240) {
+    array[RED] = 0;
+    array[GREEN] = X;
+    array[BLUE] = chroma;
+  } else if (array[HUE] >= 240 && array[HUE] < 300) {
+    array[RED] = X;
+    array[GREEN] = 0;
+    array[BLUE] = chroma;
+  } else if (array[HUE] >= 300 && array[HUE] <= 360) {
+    array[RED] = chroma;
+    array[GREEN] = 0;
+    array[BLUE] = X;
+  }
+}
+
 function calculateSaturation(lightness, maximum, minimum) {
   if (maximum === minimum) {
     // checks whether R, G, and B are equal
@@ -416,6 +470,10 @@ function calculateSaturation(lightness, maximum, minimum) {
   } else {
     return (maximum - minimum) / (2 - maximum - minimum);
   }
+}
+
+function calculateX(chroma, hue) {
+  return chroma * (1 - Math.abs(((hue / 60) % 2) - 1));
 }
 
 function getMaximum(RGBAArray) {
@@ -432,7 +490,12 @@ function limitHue(hue) {
   return hue < 0 ? hue + 360 : hue;
 }
 
-function normalize(RGBAArray) {
+function normalizeHSLA(HSLAArray) {
+  HSLAArray[SATURATION] /= 100; // changes saturation to a value between 0 and 1
+  HSLAArray[LIGHTNESS] /= 100; // changes lightness to a value between 0 and 1
+}
+
+function normalizeRGBA(RGBAArray) {
   for (let i = 0; i < RGBAArray.length - 1; i++) {
     RGBAArray[i] /= 255; // changes R, G, and B to values between 0 and 1
   }
