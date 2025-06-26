@@ -391,6 +391,8 @@ function render() {
 }
 
 function reset() {
+  colorModel = "RGBA";
+  converted = false;
   for (let i = 0; i < image.length; i++) {
     for (let j = 0; j < image[i].length; j++) {
       image[i][j] = originalImage[i][j]; // copies over the original image
