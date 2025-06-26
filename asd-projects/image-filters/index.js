@@ -2,7 +2,7 @@
 
 // variables
 var colorModel = "RGBA";
-var converted = false;
+var converted = false; // tracks whether a conversion happened
 var image = luigi;
 
 // setup
@@ -45,6 +45,7 @@ function applyFilter(filter, color1, color2) {
           filter === increaseWarmth ||
           filter === setSaturationTo200
         ) {
+          // checks whether the parameter filter needs the RGBA color model
           convertHSLAToRGBA(array);
           colorModel = "RGBA";
           converted = true;
@@ -59,6 +60,7 @@ function applyFilter(filter, color1, color2) {
           filter === increaseLightness ||
           filter === increaseOverallSaturation
         ) {
+          // checks whether the parameter filter needs the HSLA color model
           convertRGBAToHSLA(array);
           colorModel = "HSLA";
           converted = true;
@@ -68,20 +70,20 @@ function applyFilter(filter, color1, color2) {
       if (colorModel === "HSLA") {
         image[i][j] = convertHSLAArrayToString(array);
         if (converted) {
-          colorModel = "RGBA";
+          colorModel = "RGBA"; // resets to the RGBA color model, so the next pixel will be converted
         }
       } else if (colorModel === "RGBA") {
         image[i][j] = convertRGBAArrayToString(array);
         if (converted) {
-          colorModel = "HSLA";
+          colorModel = "HSLA"; // resets to the HSLA color model, so the next pixel will be converted
         }
       }
     }
   }
   if (colorModel === "HSLA" && converted) {
-    colorModel = "RGBA";
+    colorModel = "RGBA"; // corrects the reset on line 78
   } else if (colorModel === "RGBA" && converted) {
-    colorModel = "HSLA";
+    colorModel = "HSLA"; // corrects the reset on line 73
   }
 }
 
@@ -103,7 +105,7 @@ function applyFilterExcludeBackground(filter, color1, color2) {
             filter === increaseSaturationBy ||
             filter === increaseWarmth ||
             filter === setSaturationTo200
-          ) {
+          ) { // checks whether the parameter filter needs the RGBA color model
             convertHSLAToRGBA(array);
             colorModel = "RGBA";
             converted = true;
@@ -117,7 +119,7 @@ function applyFilterExcludeBackground(filter, color1, color2) {
             filter === decreaseOverallSaturation ||
             filter === increaseLightness ||
             filter === increaseOverallSaturation
-          ) {
+          ) { // checks whether the parameter filter needs the HSLA color model
             convertRGBAToHSLA(array);
             colorModel = "HSLA";
             converted = true;
@@ -127,21 +129,21 @@ function applyFilterExcludeBackground(filter, color1, color2) {
         if (colorModel === "HSLA") {
           image[i][j] = convertHSLAArrayToString(array);
           if (converted) {
-            colorModel = "RGBA";
+            colorModel = "RGBA"; // resets to the RGBA color model, so the next pixel will be converted
           }
         } else if (colorModel === "RGBA") {
           image[i][j] = convertRGBAArrayToString(array);
           if (converted) {
-            colorModel = "HSLA";
+            colorModel = "HSLA"; // resets to the HSLA color model, so the next pixel will be converted
           }
         }
       }
     }
   }
   if (colorModel === "HSLA" && converted) {
-    colorModel = "RGBA";
+    colorModel = "RGBA"; // corrects the reset on line 78
   } else if (colorModel === "RGBA" && converted) {
-    colorModel = "HSLA";
+    colorModel = "HSLA"; // corrects the reset on line 73
   }
 }
 
