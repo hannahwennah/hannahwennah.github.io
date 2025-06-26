@@ -17,7 +17,7 @@ $(document).ready(function () {
 // function definitions
 
 function applyAndRender() {
-  applyFilter(decreaseLightness);
+  applyFilter(decreaseSaturation, RED);
   render();
 }
 
@@ -182,68 +182,72 @@ function applyFilter(filter, color1, color2) { // (direction); then change apply
 
 function applyFilterExcludeBackground(filter, color1, color2) {
   // 9
-  var backgroundColor = image[0][0];
   for (let i = 0; i < image.length; i++) {
     for (let j = 0; j < image[i].length; j++) {
-      if (image[i][j] !== backgroundColor) {
-        if (colorModel === "HSLA") {
-          var HSLAArray = convertHSLAStringToArray(image[i][j]);
-          var array = HSLAArray;
-          converted = false;
-          if (
-            filter === decreaseContrast ||
-            filter === decreaseSaturation ||
-            filter === decreaseSaturationBy ||
-            filter === decreaseWarmth ||
-            filter === increaseContrast ||
-            filter === increaseSaturation ||
-            filter === increaseSaturationBy ||
-            filter === increaseWarmth ||
-            filter === invert ||
-            filter === setSaturationTo200
-          ) {
-            // checks whether the parameter filter needs the RGBA color model
-            convertHSLAToRGBA(array);
+      if (colorModel === "HSLA") {
+        image[i][j] = convertHSLAStringToArray(image[i][j]);
+        if (
+          filter === decreaseContrast ||
+          filter === decreaseSaturation ||
+          filter === decreaseSaturationBy ||
+          filter === decreaseWarmth ||
+          filter === increaseContrast ||
+          filter === increaseSaturation ||
+          filter === increaseSaturationBy ||
+          filter === increaseWarmth ||
+          filter === invert ||
+          filter === setSaturationTo200
+        ) {
+          convertHSLAToRGBA(image[i][j]);
+          if (i === image.length - 1 && j === image[i].length - 1) {
             colorModel = "RGBA";
-            converted = true;
-          }
-        } else if (colorModel === "RGBA") {
-          var RGBAArray = convertRGBAStringToArray(image[i][j]);
-          var array = RGBAArray;
-          converted = false;
-          if (
-            filter === decreaseLightness ||
-            filter === decreaseOverallSaturation ||
-            filter === increaseLightness ||
-            filter === increaseOverallSaturation ||
-            filter === makeGrayscale ||
-            filter === makeMore
-          ) {
-            // checks whether the parameter filter needs the HSLA color model
-            convertRGBAToHSLA(array);
-            colorModel = "HSLA";
-            converted = true;
           }
         }
-        filter(array, color1, color2);
-        if (colorModel === "HSLA") {
-          image[i][j] = convertHSLAArrayToString(array);
-          if (converted) {
-            colorModel = "RGBA"; // resets to the RGBA color model, so the next pixel will be converted
-          }
-        } else if (colorModel === "RGBA") {
-          image[i][j] = convertRGBAArrayToString(array);
-          if (converted) {
-            colorModel = "HSLA"; // resets to the HSLA color model, so the next pixel will be converted
+      } else if (colorModel === "RGBA") {
+        image[i][j] = convertRGBAStringToArray(image[i][j]);
+        if (
+          filter === decreaseLightness ||
+          filter === decreaseOverallSaturation ||
+          filter === increaseLightness ||
+          filter === increaseOverallSaturation ||
+          filter === makeGrayscale ||
+          filter === makeMore
+        ) {
+          convertRGBAToHSLA(image[i][j]);
+          if (i === image.length - 1 && j === image[i].length - 1) {
+            colorModel = "HSLA";
           }
         }
       }
     }
   }
-  if (colorModel === "HSLA" && converted) {
-    colorModel = "RGBA"; // corrects the reset on line 78
-  } else if (colorModel === "RGBA" && converted) {
-    colorModel = "HSLA"; // corrects the reset on line 73
+  if (colorModel === "HSLA") {
+    for (let i = 0; i < image.length; i++) {
+      var backgroundColor = convertHSLAArrayToString(image[0][0]);
+      for (let j = 0; j < image[i].length; j++) {
+        if (convertHSLAArrayToString(image[i][j]) !== backgroundColor) {
+          filter(image[i][j], color1, color2);
+        }
+      }
+    }
+  } else if (colorModel === "RGBA") {
+    for (let i = 0; i < image.length; i++) {
+      var backgroundColor = convertRGBAArrayToString(image[0][0]);
+      for (let j = 0; j < image[i].length; j++) {
+        if (convertRGBAArrayToString(image[i][j]) !== backgroundColor) {
+          filter(image[i][j], color1, color2);
+        }
+      }
+    }
+  }
+  for (let i = 0; i < image.length; i++) {
+    for (let j = 0; j < image[i].length; j++) {
+      if (colorModel === "HSLA") {
+        image[i][j] = convertHSLAArrayToString(image[i][j]);
+      } else if (colorModel === "RGBA") {
+        image[i][j] = convertRGBAArrayToString(image[i][j]);
+      }
+    }
   }
 }
 
