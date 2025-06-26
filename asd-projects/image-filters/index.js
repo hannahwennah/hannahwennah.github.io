@@ -17,7 +17,7 @@ $(document).ready(function () {
 // function definitions
 
 function applyAndRender() {
-  applyFilter(setSaturationTo200, RED);
+  applyFilter(invert);
   render();
 }
 
@@ -37,12 +37,15 @@ function applyFilter(filter, color1, color2) {
         var array = HSLAArray;
         converted = false;
         if (
+          filter === decreaseContrast ||
           filter === decreaseSaturation ||
           filter === decreaseSaturationBy ||
           filter === decreaseWarmth ||
+          filter === increaseContrast ||
           filter === increaseSaturation ||
           filter === increaseSaturationBy ||
           filter === increaseWarmth ||
+          filter === invert ||
           filter === setSaturationTo200
         ) {
           // checks whether the parameter filter needs the RGBA color model
@@ -58,7 +61,9 @@ function applyFilter(filter, color1, color2) {
           filter === decreaseLightness ||
           filter === decreaseOverallSaturation ||
           filter === increaseLightness ||
-          filter === increaseOverallSaturation
+          filter === increaseOverallSaturation ||
+          filter === makeGrayscale ||
+          filter === makeMore
         ) {
           // checks whether the parameter filter needs the HSLA color model
           convertRGBAToHSLA(array);
@@ -98,14 +103,18 @@ function applyFilterExcludeBackground(filter, color1, color2) {
           var array = HSLAArray;
           converted = false;
           if (
+            filter === decreaseContrast ||
             filter === decreaseSaturation ||
             filter === decreaseSaturationBy ||
             filter === decreaseWarmth ||
+            filter === increaseContrast ||
             filter === increaseSaturation ||
             filter === increaseSaturationBy ||
             filter === increaseWarmth ||
+            filter === invert ||
             filter === setSaturationTo200
-          ) { // checks whether the parameter filter needs the RGBA color model
+          ) {
+            // checks whether the parameter filter needs the RGBA color model
             convertHSLAToRGBA(array);
             colorModel = "RGBA";
             converted = true;
@@ -118,8 +127,11 @@ function applyFilterExcludeBackground(filter, color1, color2) {
             filter === decreaseLightness ||
             filter === decreaseOverallSaturation ||
             filter === increaseLightness ||
-            filter === increaseOverallSaturation
-          ) { // checks whether the parameter filter needs the HSLA color model
+            filter === increaseOverallSaturation ||
+            filter === makeGrayscale ||
+            filter === makeMore
+          ) {
+            // checks whether the parameter filter needs the HSLA color model
             convertRGBAToHSLA(array);
             colorModel = "HSLA";
             converted = true;
@@ -144,6 +156,13 @@ function applyFilterExcludeBackground(filter, color1, color2) {
     colorModel = "RGBA"; // corrects the reset on line 78
   } else if (colorModel === "RGBA" && converted) {
     colorModel = "HSLA"; // corrects the reset on line 73
+  }
+}
+
+function decreaseContrast(RGBAArray, color1, color2) {
+  var average = (RGBAArray[RED] + RGBAArray[GREEN] + RGBAArray[BLUE]) / 3;
+  for (i = 0; i < RGBAArray.length - 1; i++) {
+    RGBAArray[i] = RGBAArray[i] - (RGBAArray[i] - average) * 0.25; // brings R, G, and B closer to the average by a fourth of the difference between each and the average
   }
 }
 
@@ -174,6 +193,13 @@ function decreaseWarmth(RGBAArray, color1, color2) {
   RGBAArray[BLUE] = limitSaturation(RGBAArray[BLUE] + 25);
 }
 
+function increaseContrast(RGBAArray, color1, color2) {
+  var average = (RGBAArray[RED] + RGBAArray[GREEN] + RGBAArray[BLUE]) / 3;
+  for (i = 0; i < RGBAArray.length - 1; i++) {
+    RGBAArray[i] = RGBAArray[i] + (RGBAArray[i] - average) * 0.25; // brings R, G, and B closer to the average by a fourth of the difference between each and the average
+  }
+}
+
 function increaseLightness(HSLAArray, color1, color2) {
   HSLAArray[LIGHTNESS] = limitLightness(HSLAArray[LIGHTNESS] + 15);
 }
@@ -200,6 +226,12 @@ function increaseWarmth(RGBAArray, color1, color2) {
   RGBAArray[BLUE] = limitSaturation(RGBAArray[BLUE] - 15);
 }
 
+function invert(RGBAArray, color1, color2) {
+  for (i = 0; i < RGBAArray.length - 1; i++) {
+    RGBAArray[i] = 255 - RGBAArray[i];
+  }
+}
+
 function limitLightness(lightness) {
   return lightness < 0 ? 0 : lightness > 100 ? 100 : lightness;
 }
@@ -221,7 +253,38 @@ function limitSaturation(saturation) {
   return saturation < 0 ? 0 : saturation > 255 ? 255 : saturation;
 }
 
+function makeGrayscale(HSLAArray, color1, color2) {
+  HSLAArray[SATURATION] = 0;
+}
+
+function makeMore(HSLAArray, color1, color2) {
+  if (color1 === "red") {
+    HSLAArray[HUE] = 0;
+  } else if (color1 === "orange") {
+    HSLAArray[HUE] = 25;
+  } else if (color1 === "yellow") {
+    HSLAArray[HUE] = 50;
+  } else if (color1 === "green") {
+    HSLAArray[HUE] = 120;
+  } else if (color1 === "blue") {
+    HSLAArray[HUE] = 240;
+  } else if (color1 === "purple") {
+    HSLAArray[HUE] = 275;
+  } else if (color1 === "pink") {
+    HSLAArray[HUE] = 325;
+  }
+}
+
 function setSaturationTo200(RGBAArray, color1, color2) {
   // 4
   RGBAArray[color1] = 200;
+}
+
+/*
+function smudge(array, color1, color2) {
+
+  // needs to take a direction and array
+  // if smudging to the right you'd blend w/ the pixel to the left
+  // so aside from the first column
+  // average the r g and b of each pixel w/ the pixel to its left
 }
