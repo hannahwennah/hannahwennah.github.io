@@ -407,7 +407,7 @@ function addm(RGBAArray, m) {
 }
 
 function calculateChroma(lightness, saturation) {
-  return (1 - Math.abs((2 * lightness) - 1)) * saturation;
+  return (1 - Math.abs(2 * lightness - 1)) * saturation;
 }
 
 function calculateHue(RGBAArray, maximum, minimum) {
@@ -430,7 +430,7 @@ function calculateLightness(maximum, minimum) {
 }
 
 function calculatem(chroma, lightness) {
-  return lightness - (chroma / 2);
+  return lightness - chroma / 2;
 }
 
 function calculateRGB(array, chroma, X) {

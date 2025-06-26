@@ -15,7 +15,6 @@ $(document).ready(function () {
 // function definitions
 
 function applyAndRender() {
-  applyFilter(decreaseSaturation, RED);
   render();
 }
 
@@ -30,16 +29,17 @@ function applyFilter(filter, color1, color2) {
   // 1, 2, 3, and 5
   for (let i = 0; i < image.length; i++) {
     for (let j = 0; j < image[i].length; j++) {
-      // if image is in rgb, convert the pixel from rbg string to array. apply filter. if the filter uses rgb (ex reddify), then just use filter. if the filter uses hsl (ex lightness), then convert rgb array to hsl array
-      // then apply filter. convert arrays back to strings.
-      // if image is in hsl, convert from hsl string to array and so forth.
-
-      // how to check whether filter uses hsl or rgb
-      // use an if statement in apply filter
-      // if filter === certain function or smth or smth
 
       // if filter === certain function corresponding to rgb && image in hsl, 
-      // convert pixel from hsl string to hsl array to rgb array. apply filter.
+      // convert pixel from hsl string to hsl array to rgb array.
+
+      // if filter === certain function corresponding to hsl && image in rgb,
+      // convert pixel from rgb string to rgb array to hsl array.
+
+      // apply filter
+
+      // if image in rgb convert from rgb array to string
+      // if image in hsl convert from hsl array to string
       var RGBAArray = convertRGBAStringToArray(image[i][j]);
       filter(RGBAArray, color1, color2);
       image[i][j] = convertRGBAArrayToString(RGBAArray);
