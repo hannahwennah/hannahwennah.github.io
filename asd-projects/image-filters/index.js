@@ -28,34 +28,6 @@ function resetAndRender() {
 
 // helper function definitions
 
-// overhaul to my main code
-// first in apply filter
-// iterate through the image and make the necessary conversions to each pixel
-// so as it is rn
-// if the color model is hsla
-// convert hsla string to hsla array
-// store hsla array in array
-// and if the filter requires rgba
-// convert the array to an rgba array
-// on the last iteration set color model to rgba
-// else if the color model is rgba
-// convert the rgba string to an rgba array
-// store it in array
-// and if the filter requires hsla
-// convert the array to an hsla array
-// on the last iteration set color model to hsla
-// at the end of it all, the color model should be correct and all the pixels r in array format
-
-// then apply the filter to each element
-// iterate through the image
-// filter w/ all its arguments: array1 is image[i][j], array2 is the one to the left image[i][j - 1], array3 image[i - 1][j], array4 image[i][j + 1], array5 image[i + 1][j]
-// negative indices return undefined
-
-// then iterate through the image again
-// and convert all pixels back to a string
-// so if the color model is hsla convert hsla array to string
-// and the same for rgba
-
 function applyFilter(filter, color1, color2, direction) {
   for (let i = 0; i < image.length; i++) {
     for (let j = 0; j < image[i].length; j++) {
@@ -100,7 +72,8 @@ function applyFilter(filter, color1, color2, direction) {
     for (let j = 0; j < image[i].length; j++) {
       filter(image[i][j], color1, color2);
     }
-  }
+  } 
+// negative indices return undefined
   for (let i = 0; i < image.length; i++) {
     for (let j = 0; j < image[i].length; j++) {
       if (colorModel === "HSLA") {
@@ -252,42 +225,35 @@ function applyFilterExcludeBackground(filter, color1, color2) {
 }
 
 function decreaseContrast(RGBAArray, color1, color2) {
-  // (array1, array2, array3, array4, array5, color1, color2, direction, i, j)
   var average = (RGBAArray[RED] + RGBAArray[GREEN] + RGBAArray[BLUE]) / 3;
-  for (i = 0; i < RGBAArray.length - 1; i++) {
+  for (let i = 0; i < RGBAArray.length - 1; i++) {
     RGBAArray[i] = RGBAArray[i] - (RGBAArray[i] - average) * 0.25; // brings R, G, and B closer to the average by a fourth of the difference between each and the average
   }
 }
 
 function decreaseLightness(HSLAArray, color1, color2) {
-  // (array1, array2, array3, array4, array5, color1, color2, direction, i, j)
   HSLAArray[LIGHTNESS] = limitLightness(HSLAArray[LIGHTNESS] - 15);
 }
 
 function decreaseOpacity(array, color1, color2) {
-  // (array1, array2, array3, array4, array5, color1, color2, direction, i, j)
   array[ALPHA] = limitOpacity(array[ALPHA] - 0.25);
 }
 
-function decreaseOverallSaturation(HSLAArray, color1, color) {
-  // (array1, array2, array3, array4, array5, color1, color2, direction, i, j)
+function decreaseOverallSaturation(HSLAArray, color1, color2) {
   HSLAArray[SATURATION] = limitOverallSaturation(HSLAArray[SATURATION] - 25);
 }
 
 function decreaseSaturation(RGBAArray, color1, color2) {
-  // (array1, array2, array3, array4, array5, color1, color2, direction, i, j)
   // 7 and 8
   RGBAArray[color1] = limitSaturation(RGBAArray[color1] - 15);
 }
 
 function decreaseSaturationBy(RGBAArray, color1, color2) {
-  // (array1, array2, array3, array4, array5, color1, color2, direction, i, j)
   // decreases color1 by color2
   RGBAArray[color1] = limitSaturation(RGBAArray[color1] - RGBAArray[color2]);
 }
 
 function decreaseWarmth(RGBAArray, color1, color2) {
-  // (array1, array2, array3, array4, array5, color1, color2, direction, i, j)
   RGBAArray[RED] = limitSaturation(RGBAArray[RED] - 15);
   RGBAArray[BLUE] = limitSaturation(RGBAArray[BLUE] + 25);
 }
@@ -295,46 +261,39 @@ function decreaseWarmth(RGBAArray, color1, color2) {
 function increaseContrast(RGBAArray, color1, color2) {
   // (array1, array2, array3, array4, array5, color1, color2, direction, i, j)
   var average = (RGBAArray[RED] + RGBAArray[GREEN] + RGBAArray[BLUE]) / 3;
-  for (i = 0; i < RGBAArray.length - 1; i++) {
+  for (let i = 0; i < RGBAArray.length - 1; i++) {
     RGBAArray[i] = RGBAArray[i] + (RGBAArray[i] - average) * 0.25; // brings R, G, and B closer to the average by a fourth of the difference between each and the average
   }
 }
 
 function increaseLightness(HSLAArray, color1, color2) {
-  // (array1, array2, array3, array4, array5, color1, color2, direction, i, j)
   HSLAArray[LIGHTNESS] = limitLightness(HSLAArray[LIGHTNESS] + 15);
 }
 
 function increaseOpacity(array, color1, color2) {
-  // (array1, array2, array3, array4, array5, color1, color2, direction, i, j)
   array[ALPHA] = limitOpacity(array[ALPHA] + 0.25);
 }
 
-function increaseOverallSaturation(HSLAArray, color1, color) {
-  // (array1, array2, array3, array4, array5, color1, color2, direction, i, j)
+function increaseOverallSaturation(HSLAArray, color1, color2) {
   HSLAArray[SATURATION] = limitOverallSaturation(HSLAArray[SATURATION] + 15);
 }
 
 function increaseSaturation(RGBAArray, color1, color2) {
-  // (array1, array2, array3, array4, array5, color1, color2, direction, i, j)
   RGBAArray[color1] = limitSaturation(RGBAArray[color1] + 15);
 }
 
 function increaseSaturationBy(RGBAArray, color1, color2) {
-  // (array1, array2, array3, array4, array5, color1, color2, direction, i, j)
   // 7 and 8: increases color1 by color2
   RGBAArray[color1] = limitSaturation(RGBAArray[color1] + RGBAArray[color2]);
 }
 
 function increaseWarmth(RGBAArray, color1, color2) {
-  // (array1, array2, array3, array4, array5, color1, color2, direction, i, j)
   RGBAArray[RED] = limitSaturation(RGBAArray[RED] + 25);
   RGBAArray[BLUE] = limitSaturation(RGBAArray[BLUE] - 15);
 }
 
 function invert(RGBAArray, color1, color2) {
-  // (array1, array2, array3, array4, array5, color1, color2, direction, i, j)
-  for (i = 0; i < RGBAArray.length - 1; i++) {
+  for (let i = 0; i < RGBAArray.length - 1; i++) {
     RGBAArray[i] = 255 - RGBAArray[i];
   }
 }
@@ -362,12 +321,10 @@ function limitSaturation(saturation) {
 }
 
 function makeGrayscale(HSLAArray, color1, color2) {
-  // (array1, array2, array3, array4, array5, color1, color2, direction, i, j)
   HSLAArray[SATURATION] = 0;
 }
 
 function makeMore(HSLAArray, color1, color2) {
-  // (array1, array2, array3, array4, array5, color1, color2, direction, i, j)
   if (color1 === "red") {
     HSLAArray[HUE] = 0;
   } else if (color1 === "orange") {
@@ -386,23 +343,11 @@ function makeMore(HSLAArray, color1, color2) {
 }
 
 function setSaturationTo200(RGBAArray, color1, color2) {
-  // (array1, array2, array3, array4, array5, color1, color2, direction, i, j)
   // 4
   RGBAArray[color1] = 200;
 }
 
-function smudge(
-  array1,
-  array2,
-  array3,
-  array4,
-  array5,
-  color1,
-  color2,
-  direction,
-  i,
-  j
-) {
+function smudge(array, arrayToLeft, arrayAbove, arrayToRight, arrayBelow, color1, color2, direction, i, j) {
   // replace array 1 w/ average values of array1 and array2. array2 is the pixel left, 3 the pixel above, 4 the pixel to the right, 5 the pixel below
   // if direction is left
   // and the pixel is not the last one in its row (so j is not image[i].length - 1)

@@ -325,7 +325,7 @@ function convertHSLAToRGBA(array) {
   var X = calculateX(chroma, array[HUE]);
   calculateRGB(array, chroma, X);
   addm(array, m);
-  for (i = 0; i < array.length - 1; i++) {
+  for (let i = 0; i < array.length - 1; i++) {
     array[i] = Math.round(array[i] * 255);
   }
 }
@@ -403,7 +403,7 @@ function reset() {
 // helper function definitions
 
 function addm(RGBAArray, m) {
-  for (i = 0; i < RGBAArray.length - 1; i++) {
+  for (let i = 0; i < RGBAArray.length - 1; i++) {
     RGBAArray[i] += m;
   }
 }
