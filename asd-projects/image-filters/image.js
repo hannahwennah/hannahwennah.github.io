@@ -1,7 +1,8 @@
 // variable declarations
 
 // constants
-const originalImage = []; // stores a copy of the original image
+const BLURRED_IMAGE = [];
+const ORIGINAL_IMAGE = []; // stores a copy of the original image
 
 const SQUARE_SIDE = 20;
 
@@ -372,7 +373,7 @@ function copy() {
     for (let j = 0; j < image[i].length; j++) {
       subarray.push(image[i][j]);
     }
-    originalImage.push(subarray); // copies over each subarray one by one
+    ORIGINAL_IMAGE.push(subarray); // copies over each subarray one by one
   }
 }
 
@@ -395,7 +396,7 @@ function reset() {
   converted = false;
   for (let i = 0; i < image.length; i++) {
     for (let j = 0; j < image[i].length; j++) {
-      image[i][j] = originalImage[i][j]; // copies over the original image
+      image[i][j] = ORIGINAL_IMAGE[i][j]; // copies over the original image
     }
   }
 }

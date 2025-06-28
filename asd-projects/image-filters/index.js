@@ -17,7 +17,7 @@ $(document).ready(function () {
 // function definitions
 
 function applyAndRender() {
-  applyFilter(decreaseSaturation, RED);
+  applyFilterExcludeBackground(smudge, undefined, undefined, "down");
   render();
 }
 
@@ -70,10 +70,14 @@ function applyFilter(filter, color1, color2, direction) {
   }
   for (let i = 0; i < image.length; i++) {
     for (let j = 0; j < image[i].length; j++) {
-      filter(image[i][j], color1, color2);
+      if (filter !== smudge) {
+        filter(image[i][j], color1, color2);
+      } else {
+        smudge(image[i][j], direction, i, j);
+      }
     }
-  } 
-// negative indices return undefined
+  }
+  // negative indices return undefined
   for (let i = 0; i < image.length; i++) {
     for (let j = 0; j < image[i].length; j++) {
       if (colorModel === "HSLA") {
@@ -153,7 +157,7 @@ function applyFilter(filter, color1, color2) { // (direction); then change apply
 }
 */
 
-function applyFilterExcludeBackground(filter, color1, color2) {
+function applyFilterExcludeBackground(filter, color1, color2, direction) {
   // 9
   for (let i = 0; i < image.length; i++) {
     for (let j = 0; j < image[i].length; j++) {
@@ -199,7 +203,11 @@ function applyFilterExcludeBackground(filter, color1, color2) {
       var backgroundColor = convertHSLAArrayToString(image[0][0]);
       for (let j = 0; j < image[i].length; j++) {
         if (convertHSLAArrayToString(image[i][j]) !== backgroundColor) {
-          filter(image[i][j], color1, color2);
+          if (filter !== smudge) {
+            filter(image[i][j], color1, color2);
+          } else {
+            smudge(image[i][j], direction, i, j);
+          }
         }
       }
     }
@@ -208,7 +216,11 @@ function applyFilterExcludeBackground(filter, color1, color2) {
       var backgroundColor = convertRGBAArrayToString(image[0][0]);
       for (let j = 0; j < image[i].length; j++) {
         if (convertRGBAArrayToString(image[i][j]) !== backgroundColor) {
-          filter(image[i][j], color1, color2);
+          if (filter !== smudge) {
+            filter(image[i][j], color1, color2);
+          } else {
+            smudge(image[i][j], direction, i, j);
+          }
         }
       }
     }
@@ -347,22 +359,38 @@ function setSaturationTo200(RGBAArray, color1, color2) {
   RGBAArray[color1] = 200;
 }
 
-function smudge(array, arrayToLeft, arrayAbove, arrayToRight, arrayBelow, color1, color2, direction, i, j) {
-  // replace array 1 w/ average values of array1 and array2. array2 is the pixel left, 3 the pixel above, 4 the pixel to the right, 5 the pixel below
-  // if direction is left
-  // and the pixel is not the last one in its row (so j is not image[i].length - 1)
-  // iterate through array1 except the last value
-  // array1[k] = (array1[k] + array[4]) / 2;
-  // if direction is up
-  // and the pixel is not in the last row (so i is not image.length - 1)
-  // iterate through array1 except the last value
-  // array1[k] = array1[k] + array5[k] / 2
-  // if direction is right // it won't smudge exactly the same because the pixel to the left its grabbing values from has already been changed
-  // and the pixel is not the first one in its row (so j is not 0)
-  // iterate through array1 except the last value
-  // array1[k] = (array1[k] + array2[k] / 2);
-  // if direction is down // it wont' smudge exactly the same because the pixel above its grabbing values from has already been changed
-  // and the pixel is not the first row (so i is not 0)
-  // iterate through array1 except the last value
-  // array1[k] = array1[k] +array3[k] / 2
+function smudge(array, direction, i, j) {
+  if (direction === "left" && j !== image[i].length - 1) {
+    for (let k = 0; k < array.length - 1; k++) {
+      array[k] = (array[k] + image[i][j + 1][k]) / 2; // average values w/ pixel to its right
+    }
+  } else if (direction === "up" && i !== image.length - 1) {
+    for (let k = 0; k < array.length - 1; k++) {
+      array[k] = (array[k] + image[i + 1][j][k]) / 2;
+    }
+  } else if (direction === "right" && j !== 0) {
+    // not first in row
+    for (let k = 0; k < array.length - 1; k++) {
+      array[k] = (array[k] + image[i][j - 1][k]) / 2; // average values w/ pixel to its left
+    }
+  } else if (direction === "down" && i !== 0) {
+    for (let k = 0; k < array.length - 1; k++) {
+      array[k] = (array[k] + image[i - 1][j][k]) / 2;
+    }
+  }
+}
+
+/*
+In a real blur filter, you can't modify pixels as you loop — because each pixel’s new value depends on the original image.
+
+💡 To do this correctly:
+
+Create a second 2D array to store the blurred version of the image
+Use nested loops to calculate the average RGB values of a pixel’s neighbors
+Store that result in the new array
+After finishing all calculations, copy the new array back to image
+*/
+
+function blur(array, i, j) {
+  
 }
